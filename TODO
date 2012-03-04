@@ -1,0 +1,23 @@
+Todo:
+
+- change WinOps menus
+  -> the most used ops first ...
+- check Key bindings
+  -> which should be implemented by all means?
+- check FvwmProxy
+  -> configure it to show the usage?
+- xinerama support
+  -> nothing implemented yet
+- check key bindings in menus
+  -> nothing implemented yet
+- check sound effects
+  -> for FvwmEvent
+     Problem: no au files on e.g. Debian
+     -> other files (wave, mp3, etc)?
+- how to implement usage of other cursors ...
+- find systray applets for menu
+- time_date script or xclock?
+- discussion about used tools in the config
+  -> xterm, xclock for example are not default installed with X
+  -> should print a text to .xsession-errors which tools not installed
+     but needed for proper work of the configuration?
