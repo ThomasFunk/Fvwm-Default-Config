@@ -1,0 +1,91 @@
+History:
+
+02/10/2012 V 0.15
+- change InfoStore back to SetEnv in 'Configure Background' (MenuFvwmConfiguration)
+  -> EnvMatch prob
+- change the edge behaviour from NOT scrolling to scrolling with a EdgeResistance of 350
+- change names of MenuWindowOps menus to better understanding ones:
+  MenuWindowOps -> MenuWindowOpsFull
+  MenuWindowOps2 -> MenuWindowOpsTrimmed
+- change some MenuWindowOps menus binded to mouse keys because of usability reasons
+
+01/27/2012 V 0.14
+- set splash screen only start at init
+- add function FuncSetDefaultTerminal to set a default terminal
+- add functions FuncSuspend and FuncHibernate for suspend and hibernate
+
+01/26/2012 V 0.13
+- change most of SetEnv to InfoStore
+- change FvwmGlobalIconMan hide/show to top/bottom layer functionalty
+- add chromium to FuncOpenURL
+- set HandleWidth of xclock from 0 to 2 for better look
+- change focus policy from SloopyFocus to ClickToFocus
+- add stalonetray as the default systray
+- add function FuncStartSystrayApplets to start applets while init if
+  systray is started
+- add some applets
+
+
+09/26/2011 V 0.12
+- add time and date "module" based on xclock
+
+09/24/2011 V 0.11
+- add Env variable $[used_font] to change default font easily
+- delete all XLFD fonts behind xft fonts (not needed, because of DefaultFont)
+- define new default IconBox how placing iconified windows on the screen
+- add module FvwmAnimate (twist)
+- change some help messages (CTRL + ALT + click) to a better display format
+- change MinOverlapPlacement to TileCascadePlacement
+- Cleanup Overview list and headlines
+
+09/16/2011 V 0.10
+- change in RootMenu the Debian menu to an Applications menu using fvwm-menu-desktop
+- change short Colorset to extended Colorset from Fvwm-Themes
+- add global FvwmIconman which can move with mouse hover inside the screen
+- change FvwmPager position and geometry
+- add some Env variables ($[fontsize], $[pager_height], $[pixelmove])
+- change FvwmAuto time from 500 to 300ms
+
+08/16/2011 V 0.9.1
+- Fix bug in FuncFvwmManpageMenu - all manpages started with a small "f" won't listed
+- add mouse bindings and FuncWheelToggleShade to shade window with mouse scroll. Also
+  expand help (with Ctrl-Alt click)
+
+08/10/2011 V 0.9
+- add tail .xsession-errors to X configuration menu
+- check mouse binding functionality
+- add help messages for mouse bindings in titlebar, window, corners, sides and
+  icon with CTRL + ALT + click
+- add FuncGetFvwmVersion to show extended Fvwm version message
+
+08/06/2011 V 0.8
+- add edit .fvwm2rc menu entry (colors not good - must change!)
+- add Show Colorsets list
+- add Alt-F2 Run command functionality
+- cleanup and update overview list
+
+08/05/2011 V 0.7
+- add screensaver and lock functionality
+- make some menus dynamically for proper update
+- add Wallpaper functionality
+
+08/01/2011 V 0.6
+- add FuncShowMultipleMessages - Creates a FvwmForm Infobox with multiple message lines
+- add SwitchWindow - Switching focus between windows. (Alt-Tab) from the Fvwm Wiki
+
+07/24/2011 V 0.4
+- add gradients functionality for windows
+- change FuncWindowCreateScreenshot + FuncDesktopCreateScreenshot
+  -> add Tests with messages
+   
+07/23/2011 V 0.3
+- add FvwmBaker for background
+- add FvwmPager 
+- add screenshot functionality
+
+V 0.1 - V 0.2
+- base functionalities and clean ups
+
+
+
+
