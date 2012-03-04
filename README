@@ -1,0 +1,46 @@
+Featurelist of Default Config:
+
+- 4 virtual desktop pages
+- Systray (if stalonetray is installed)
+- date and time (if xclock is installed)
+- lock desk & screensaver (if xscreensaver is installed)
+- Application menu via fvwm-menu-desktop
+- Background configurable with thumb browser (if imagemagick and eterm 
+  is installed)
+- Animation control of window moves
+- Run command with FvwmForm
+- help messages for mouse bindings in titlebar, window, corners, sides 
+  and icon with CTRL + ALT + click
+- dynamic menus
+- Switching focus between windows with Alt-Tab
+- Splash screen
+
+Keybindings:
+------------
+Alt+Ctrl+cursor right             switch to page right
+Alt+Ctrl+cursor left              switch to page left
+
+Shift+Alt+Ctrl+cursor right       scroll right by 10% of a page
+Shift+Alt+Ctrl+cursor left        scroll left by 10% of a page
+
+Shift+Alt+cursor right            move mouse pointer right by 1% of a page
+Shift+Alt+cursor left             move mouse pointer left by 1% of a page
+Shift+Alt+cursor up               move mouse pointer up by 1% of a page
+Shift+Alt+cursor down             move mouse pointer down by 1% of a page
+
+Alt+Tab                           switching focus between windows
+
+Shift+Alt+F1                      open root menu
+Shift+Alt+F2
+Shift+Alt+F3
+Shift+Alt+F4
+Shift+Alt+F5
+Shift+Alt+F6
+Shift+Alt+F7
+Shift+Alt+F8
+Shift+Alt+F9
+Shift+Alt+F10
+Shift+Alt+F11
+
+Shift+Ctrl+F11                    maximize active window to fullscreen and back
+
