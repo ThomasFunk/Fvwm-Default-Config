@@ -1,5 +1,12 @@
 History:
 
+03/16/2012 V 0.16
+- change FuncMoveOrRaiseOrShade to FuncMoveOrRaiseOrMaximize. Also updating the
+  help window
+- add missing hotkeys in the menus
+- delete the restart function because of the wiki article "How FVWM starts applications"
+- add "Session management" article to the help menu
+
 02/10/2012 V 0.15
 - change InfoStore back to SetEnv in 'Configure Background' (MenuFvwmConfiguration)
   -> EnvMatch prob
@@ -24,7 +31,6 @@ History:
 - add function FuncStartSystrayApplets to start applets while init if
   systray is started
 - add some applets
-
 
 09/26/2011 V 0.12
 - add time and date "module" based on xclock
