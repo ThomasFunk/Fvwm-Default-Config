@@ -1,9 +1,5 @@
 Todo:
 
-- change WinOps menus
-  -> the most used ops first ...
-- check Key bindings
-  -> which should be implemented by all means?
 - check FvwmProxy
   -> configure it to show the usage?
 - xinerama support
@@ -21,3 +17,6 @@ Todo:
   -> xterm, xclock for example are not default installed with X
   -> should print a text to .xsession-errors which tools not installed
      but needed for proper work of the configuration?
+- restart menu entry for xclock
+- thoughts about functions which use xterm (not default installed with X11)
+- deleting not used functions

@@ -1,46 +1,127 @@
-Featurelist of Default Config:
+Welcome to Fvwm default config. This config intend to be simple and clean
+but with all a modern desktop should have.
 
+
+Featurelist of Fvwm Default Config:
+-----------------------------------
 - 4 virtual desktop pages
 - Systray (if stalonetray is installed)
 - date and time (if xclock is installed)
-- lock desk & screensaver (if xscreensaver is installed)
+- Lock desk & screensaver (if xscreensaver is installed)
 - Application menu via fvwm-menu-desktop
 - Background configurable with thumb browser (if imagemagick and eterm 
   is installed)
 - Animation control of window moves
-- Run command with FvwmForm
-- help messages for mouse bindings in titlebar, window, corners, sides 
-  and icon with CTRL + ALT + click
-- dynamic menus
+- Simple "Run" command with FvwmForm
+- Help messages for mouse bindings in titlebar, window, corners, sides 
+  and icon with Ctrl-Alt + click
+- Help messages for key bindings with Ctrl-Alt + key (see on "Keybindings")
+  A global one with Ctrl-Alt + H
+- Dynamic menus
 - Switching focus between windows with Alt-Tab
 - Splash screen
 
+
 Keybindings:
 ------------
-Alt+Ctrl+cursor right             switch to page right
-Alt+Ctrl+cursor left              switch to page left
 
-Shift+Alt+Ctrl+cursor right       scroll right by 10% of a page
-Shift+Alt+Ctrl+cursor left        scroll left by 10% of a page
+Alt+Tab                           Switching focus between windows
 
-Shift+Alt+cursor right            move mouse pointer right by 1% of a page
-Shift+Alt+cursor left             move mouse pointer left by 1% of a page
-Shift+Alt+cursor up               move mouse pointer up by 1% of a page
-Shift+Alt+cursor down             move mouse pointer down by 1% of a page
+Shift+Alt+F1                      Open root menu
+Shift+Alt+F2                      Launch 'run' dialog box
+Shift+Alt+F3                      Show window list
+Shift+Alt+F4                      Close active window
+Shift+Alt+F5                      Not used
+Shift+Alt+F6                      Cycle between same resource windows
+Shift+Alt+F7                      Move active window
+Shift+Alt+F8                      Resize active window
+Shift+Alt+F9                      Minimize active window
+Shift+Alt+F10                     Maximize/restore active window
+Shift+Alt+F11                     Maximize active window to fullscreen and back
+Shift+Alt+F12                     Identify active window
 
-Alt+Tab                           switching focus between windows
+-> Help message with Ctrl-Alt + A
 
-Shift+Alt+F1                      open root menu
-Shift+Alt+F2
-Shift+Alt+F3
-Shift+Alt+F4
-Shift+Alt+F5
-Shift+Alt+F6
-Shift+Alt+F7
-Shift+Alt+F8
-Shift+Alt+F9
-Shift+Alt+F10
-Shift+Alt+F11
 
-Shift+Ctrl+F11                    maximize active window to fullscreen and back
+Shift+Ctrl+F1                     Open full windows oops menu
+Shift+Ctrl+F2                     Launch FvwmConsole
+
+Shift+Ctrl+D                      Hide/unhide all windows
+Shift+Ctrl+L                      Lock Screen
+Shift+Ctrl+T                      Launch Terminal
+
+-> Help message with Ctrl-Alt + C
+
+
+Alt+Ctrl+cursor right             Switch to page right
+Alt+Ctrl+cursor left              Switch to page left
+
+Shift+Alt+Ctrl+cursor right       Scroll right by 10% of a page
+Shift+Alt+Ctrl+cursor left        Scroll left by 10% of a page
+
+Shift+Alt+cursor right            Move mouse pointer right by 1% of a page
+Shift+Alt+cursor left             Move mouse pointer left by 1% of a page
+Shift+Alt+cursor up               Move mouse pointer up by 1% of a page
+Shift+Alt+cursor down             Move mouse pointer down by 1% of a page
+
+-> Help message with Ctrl-Alt + P
+
+
+Mouse bindings:
+---------------
+Mouse:
+  +------------+
+  | ||  ||  || |
+  |	           |
+  +------------+
+    1   2   3
+
+Window:
+  +----------------------------------------------------------+
+  | V                                                -  +  X |
+  +----------------------------------------------------------+
+  |                                                          |
+
+
+Buttons:
+--------
+Left (V):
+Button 1: shows MenuWindowOpsTrimmed menu
+Button 2: shows Move to page menu
+Button 3 shows WindowOps group menu
+
+Close (X):
+Every button close window
+
+Maximize (+):
+Button 1: maximize window
+Button 2: maximize window vertically
+Button 3: maximize window horizontally
+
+Minimize (-):
+Button 1: iconify window
+Button 2: iconify group of same window resources
+Button 3: iconify/deiconify group of same window resources
+
+
+Mouse on windows decoration:
+----------------------------
+Titlebar, corners and sides:
+Button 1:   Drag moves window, maximize on double click
+Button 2:   Drag moves window, raise or lower with click
+Button 3:   MenuWindowOpsTrimmed menu with click, MenuWindowOpsFull menu with ALT + click
+Button 4/5: Rolling wheel on titlebar up/down shades/unshades
+
+Window area:
+Button 1:   Root menu with ALT + click
+Button 2:   Drag + ALT moves window, raise or lower with ALT + click
+
+
+Mouse on Icons (iconified):
+---------------------------
+Button 1:   Drag moves icon, deiconify with double click, root menu with ALT + click
+Button 2:   Deiconify icon with click, all of the same resource group with CTRL + click
+Button 3:   MenuWindowOpsTrimmed menu with click
+
+
 
