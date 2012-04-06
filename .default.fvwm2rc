@@ -6,7 +6,7 @@
 #  ) ( .  \  /* \    //    \ .
 # (___)  * \/  . \/\/(_/\/\_)    2.6.4
 #
-# FVWM Default Configuration V 0.17
+# FVWM Default Configuration V 0.18
 # Copyright (C) 2012 fvwm.org
 #
 # Authors:
@@ -94,8 +94,7 @@
 #     5.3 FvwmBanner
 #     5.4 FvwmEvent
 #     5.5 FvwmForm
-#         5.5.1 ShowMessage
-#         5.5.2 RunCommand
+#         5.5.1 RunCommand
 #     5.6 FvwmIdent
 #     5.7 FvwmIconMan
 #         5.7.1 Global FvwmIconMan ("Taskbar")
@@ -829,22 +828,22 @@ Mouse 5       T       A       FuncWheelToggleShade False
 # Help info with Ctrl+Alt to Window Button Pointer
 #-----------------------------------------------------------------------
 #     Button	Context Modifi 	Function
-Mouse 0 	    1	      CM	  FuncShowMultipleMessages  "Left Button Bindings" \
+Mouse 0 	    1	      CM	  FuncShowMessage  "Left Button Bindings" \
 "Mouse 1:  WindowOps menu" \
 "Mouse 2:  Move to page menu" \
 "Mouse 3:  WindowGroupOps menu"
                                                       
-Mouse 0 	    2	      CM	  FuncShowMultipleMessages  "Close Button Bindings" \
+Mouse 0 	    2	      CM	  FuncShowMessage  "Close Button Bindings" \
 "Mouse 1:  Delete on click" \
 "          Destroy on double click"
                                                       
-Mouse 0 	    4	      CM	  FuncShowMultipleMessages  "Maximize Button Bindings" \
+Mouse 0 	    4	      CM	  FuncShowMessage  "Maximize Button Bindings" \
 "Mouse 1:  Maximize fully on click" \
 "          Maximize menu on double click" \
 "Mouse 2:  Maximize vertically" \
 "Mouse 3:  Maximize horizontally"
                                                       
-Mouse 0 	    6	      CM	  FuncShowMultipleMessages  "Minimize Button Bindings" \
+Mouse 0 	    6	      CM	  FuncShowMessage  "Minimize Button Bindings" \
 "Mouse 1:  Iconify" \
 "Mouse 2:  Iconify on resource group" \
 "Mouse 3:  Iconify toggle resource group"
@@ -882,16 +881,16 @@ Mouse 5       T       A       FuncWheelToggleShade False
 # Help info with Ctrl+Alt to Pointer in Window Decorations
 #-----------------------------------------------------------------------
 #     Button	Context Modifi 	Function
-Mouse 0 	    T       CM      FuncShowMultipleMessages  "Mouse Bindings for Titlebar" \
+Mouse 0 	    T       CM      FuncShowMessage  "Mouse Bindings for Titlebar" \
 "Mouse 1:   Drag moves window" \
-"           Maximize on double click"\
+"           Maximize on double click" \
 "Mouse 2:   Drag moves window" \
 "           Raise or lower with click" \
 "Mouse 3:   MenuWindowOpsTrimmed menu with click" \
 "           MenuWindowOpsFull menu with ALT + click" \
 "Mouse 4/5: Rolling wheel up/down shades/unshades"
 
-Mouse 0 	    SF      CM      FuncShowMultipleMessages  "Mouse Bindings for Corners and Sides" \
+Mouse 0 	    SF      CM      FuncShowMessage  "Mouse Bindings for Corners and Sides" \
 "Mouse 1:   Drag resize window" \
 "           Maximize on double click" \
 "Mouse 2:   Drag moves window" \
@@ -899,7 +898,7 @@ Mouse 0 	    SF      CM      FuncShowMultipleMessages  "Mouse Bindings for Corne
 "Mouse 3:   MenuWindowOpsTrimmed menu with click" \
 "           MenuWindowOpsFull menu with ALT + click"
 
-Mouse 0 	    W       CM      FuncShowMultipleMessages  "Mouse Bindings for Window area" \
+Mouse 0 	    W       CM      FuncShowMessage  "Mouse Bindings for Window area" \
 "Mouse 1:   Root menu with ALT + click" \
 "Mouse 2:   Drag + ALT moves window" \
 "           Raise or lower with ALT + click"
@@ -928,7 +927,7 @@ Mouse 3       I	      A	    Menu MenuWindowGroupOps
 # Help info with Ctrl+Alt to Pointer in Icons
 #-----------------------------------------------------------------------
 #     Button	Context Modifi 	Function
-Mouse 0 	    I       CM      FuncShowMultipleMessages  "Mouse Bindings for Icons" \
+Mouse 0 	    I       CM      FuncShowMessage  "Mouse Bindings for Icons" \
 "Mouse 1:   Drag moves icon" \
 "           Deiconify with double click" \
 "           Root menu with ALT + click" \
@@ -957,6 +956,8 @@ Mouse 1 	    WI	    M	      Menu MenuRoot
 #   Keyname Context Modifi 	Function
 # Switching focus between windows. (Alt-Tab)
 Key Tab     A       M       SwitchWindow
+# Print screenshot of whole desktop (page)
+Key Print   A       M       FuncDesktopCreateScreenshot
 
 
 #-----------------------------------------------------------------------
@@ -976,7 +977,7 @@ Key Right	  A	      CM	    GotoPage +1p +0p
 #Key Down	  A	      CM	    GotoPage +0p +1p
 
 # press Ctrl-Alt A to show all Alt related key bindings
-key A       A       CM      FuncShowMultipleMessages  "Alt Key Bindings" \
+key A       A       CM      FuncShowMessage  "Alt Key Bindings" \
 "Shift-Alt:" \
 "F1: Open root menu          F7:  Move window" \
 "F2: Launch 'run' dialog box F8:  Resize window" \
@@ -987,20 +988,23 @@ key A       A       CM      FuncShowMultipleMessages  "Alt Key Bindings" \
 "    resource windows" \
 "----------" \
 "Alt:" \
-"Tab: Cycle between windows"
+"Tab:   Cycle between windows" \
+"Print: Screenshot of the desktop"
 
 # press Ctrl-Alt C to show all Ctrl related key bindings
-key C       A       CM      FuncShowMultipleMessages  "Ctrl Key Bindings" \
+key C       A       CM      FuncShowMessage  "Ctrl Key Bindings" \
 "Shift-Ctrl:" \
 "F1: Open full Oops menu     F2: Launch FvwmConsole" \
 "---" \
 "D:  Hide/unhide all windows T:  Launch Terminal" \
 "L:  Lock Screen" \
 "---" \
-"1-4: Go to page"
+"1-4: Go to page" \
+"---" \
+"Print: Screenshot of the window"
 
 # press Ctrl-Alt P to show all page related key bindings
-key P       A       CM      FuncShowMultipleMessages  "Page Key Bindings" \
+key P       A       CM      FuncShowMessage  "Page Key Bindings" \
 "Alt+Ctrl+Cursor:" \
 "right/left: Switch to page right/left" \
 "----------" \
@@ -1011,7 +1015,7 @@ key P       A       CM      FuncShowMultipleMessages  "Page Key Bindings" \
 "right/left/up/down: Move mouse pointer by 1% of a page"
 
 # press Ctrl-Alt H to show the global key bindings help window
-key H       A       CM      FuncShowMultipleMessages  "Help Keys with Ctrl-Alt" \
+key H       A       CM      FuncShowMessage  "Help Keys with Ctrl-Alt" \
 "A: List Alt bindings" \
 "C: List Ctrl bindings" \
 "P: List page bindings"
@@ -1088,6 +1092,8 @@ Key D	      A	      SC	    All (CurrentPage, AcceptsFocus) Iconify
 Key L	      A	      SC	    Exec exec xscreensaver-command -lock
 # launch Terminal
 Key T	      A	      SC	    Exec exec $[infostore.default_terminal]
+# Print screenshot for active window
+Key Print   A       SC      FuncWindowCreateScreenshot
 
 
 #-----------------------------------------------------------------------
@@ -1212,20 +1218,7 @@ DestroyModuleConfig FvwmEvent: *
 #=======================================================================
 
 #-----------------------------------------------------------------------
-# 5.5.1 Show Message
-#-----------------------------------------------------------------------
-DestroyModuleConfig  FvwmForm-ShowMessage: *
-*FvwmForm-ShowMessage: GrabServer
-*FvwmForm-ShowMessage: WarpPointer
-*FvwmForm-ShowMessage: Title        "$TITLE"
-*FvwmForm-ShowMessage: Line         center
-*FvwmForm-ShowMessage: Text         "$MSG"
-*FvwmForm-ShowMessage: Line         center
-*FvwmForm-ShowMessage: Button       quit " Ok "
-*FvwmForm-ShowMessage: Command      Nop
-
-#-----------------------------------------------------------------------
-# 5.5.2 RunCommand Window
+# 5.5.1 RunCommand Window
 #-----------------------------------------------------------------------
 DestroyModuleConfig  FvwmForm-RunCommand: *
 *FvwmForm-RunCommand: WarpPointer
@@ -1367,6 +1360,8 @@ AddToFunc InitFunction
 #-----------------------------------------------------------------------
 #DestroyFunc StartFunction
 AddToFunc StartFunction
+# check for apps needed for full config functionality
++ I Test (Init) FuncAppCheck
 # create an Applications menu if not exist
 + I Test (!f $[FVWM_USERDIR]/menu) Exec fvwm-menu-desktop > $[FVWM_USERDIR]/menu
 # show splash sceen
@@ -1410,6 +1405,46 @@ AddToFunc SessionRestartFunction
 #=======================================================================
 # 6.2 General
 #=======================================================================
+
+#-----------------------------------------------------------------------
+# Prints a message in .xsession-errors
+#-----------------------------------------------------------------------
+DestroyFunc FuncPrintDbgMsg
+AddToFunc   FuncPrintDbgMsg
++ I Piperead `echo "[fvwm]$0: $1" >> ${HOME}/.xsession-errors`
+
+#-----------------------------------------------------------------------
+# Check which appliction are installed to get full functionality
+# print a message in .xsession-errors if check for app failed
+#-----------------------------------------------------------------------
+DestroyFunc FuncAppCheck
+AddToFunc   FuncAppCheck
+# xterm
++ I Test (!x xterm) FuncPrintDbgMsg "[AppCheck]" "xterm (view, edit) not installed"
+# xclock
++ I Test (!x xclock) FuncPrintDbgMsg "[AppCheck]" "xclock (date & time) not installed"
+# default terminal
++ I Test (!x $[infostore.default_terminal]) FuncPrintDbgMsg "[AppCheck]" "default terminal $[infostore.default_terminal] not installed"
+# default browser
++ I Test (!x $[infostore.default_browser]) FuncPrintDbgMsg "[AppCheck]" "default browser $[infostore.default_browser] not installed"
+# xscreensaver
++ I Test (!x xscreensaver-command) FuncPrintDbgMsg "[AppCheck]" "xscreensaver (lock) not installed"
+# Esetroot in package eterm
++ I Test (!x Esetroot) FuncPrintDbgMsg "[AppCheck]" "eterm (esetroot for background) not installed"
+# import in package imagemagick
++ I Test (!x import) FuncPrintDbgMsg "[AppCheck]" "imagemagick (import for screenshot, thumbs) not installed"
+# stalonetray
++ I Test (!x stalonetray) FuncPrintDbgMsg "[AppCheck]" "stalonetray (systray) not installed"
+# systray app volumeicon
++ I Test (!x volumeicon) FuncPrintDbgMsg "[AppCheck]" "volumeicon (systray volume control) not installed"
+# systray app fdpowermon
++ I Test (!x fdpowermon) FuncPrintDbgMsg "[AppCheck]" "fdpowermon (systray pm control) not installed"
+# systray app nm-applet
++ I Test (!x nm-applet) FuncPrintDbgMsg "[AppCheck]" "nm-applet (systray network control) not installed"
+# systray app bluetooth-applet
++ I Test (!x bluetooth-applet) FuncPrintDbgMsg "[AppCheck]" "bluetooth-applet (systray bluetooth-applet) not installed"
+# Suspend, hibernate pm-is-supported
++ I Test (!x pm-is-supported) FuncPrintDbgMsg "[RequiredAppCheck]" "pm-utils (suspend, hibernate) not installed"
 
 #-----------------------------------------------------------------------
 # Starts a time and date "module"
@@ -1517,37 +1552,30 @@ AddToFunc   FuncDesktopCreateScreenshot
                                     "ImageMagick isn't installed. No screenshot created."
 + I InfoStoreRemove picpath
 
-#-----------------------------------------------------------------------
-# Shows a FvwmForm Infobox with 1 message line
-# realized with FvwmForm module
-#-----------------------------------------------------------------------
-DestroyFunc FuncShowMessage
-AddToFunc   FuncShowMessage
-+ I Module FvwmForm FvwmForm-ShowMessage "TITLE=$0" "MSG=$1"
 
 #-----------------------------------------------------------------------
-# Shows a FvwmForm Infobox with multiple message lines
+# Shows a FvwmForm Infobox with one or multiple message line(s)
 # realized with shell commands over Piperead
 #-----------------------------------------------------------------------
 # Example:
-# FuncShowMultipleMessages "<title>" <count_of_messages> "<message_1>" ... "<message_9>"
-DestroyFunc FuncShowMultipleMessages
-AddToFunc   FuncShowMultipleMessages
-+ I Piperead `echo 'DestroyModuleConfig  FvwmForm-MultipleMessages: *' > ${FVWM_USERDIR}/FvwmForm-MultipleMessages; \
-              echo '*FvwmForm-MultipleMessages: Font 8x13' >> ${FVWM_USERDIR}/FvwmForm-MultipleMessages; \
-              echo '*FvwmForm-MultipleMessages: WarpPointer' >> ${FVWM_USERDIR}/FvwmForm-MultipleMessages; \
-              echo "*FvwmForm-MultipleMessages: Title   \\"$0\\"" >> ${FVWM_USERDIR}/FvwmForm-MultipleMessages `
+# FuncShowMessage "<title>" "<message_1>" ... "<message_n>"
+DestroyFunc FuncShowMessage
+AddToFunc   FuncShowMessage
++ I Piperead `echo 'DestroyModuleConfig  FvwmForm-Messages: *' > ${FVWM_USERDIR}/FvwmForm-Messages; \
+              echo '*FvwmForm-Messages: Font 8x13' >> ${FVWM_USERDIR}/FvwmForm-Messages; \
+              echo '*FvwmForm-Messages: WarpPointer' >> ${FVWM_USERDIR}/FvwmForm-Messages; \
+              echo "*FvwmForm-Messages: Title   \\"$0\\"" >> ${FVWM_USERDIR}/FvwmForm-Messages `
 + I Piperead `start=0; for i in $*; do \
               if [ "$start" -gt "0" ]; then \
-                echo '*FvwmForm-MultipleMessages: Line    left' >> ${FVWM_USERDIR}/FvwmForm-MultipleMessages; \
-                echo "*FvwmForm-MultipleMessages: Text  \\"$i\\"" >> ${FVWM_USERDIR}/FvwmForm-MultipleMessages; \
+                echo '*FvwmForm-Messages: Line    left' >> ${FVWM_USERDIR}/FvwmForm-Messages; \
+                echo "*FvwmForm-Messages: Text  \\"$i\\"" >> ${FVWM_USERDIR}/FvwmForm-Messages; \
               fi; \
               start=$(($start+1)); \
               done `
-+ I Piperead `echo '*FvwmForm-MultipleMessages: Line   center' >> ${FVWM_USERDIR}/FvwmForm-MultipleMessages; \
-              echo '*FvwmForm-MultipleMessages: Button  quit \" Ok \"' >> ${FVWM_USERDIR}/FvwmForm-MultipleMessages; \
-              echo '*FvwmForm-MultipleMessages: Command !(rm -f ${FVWM_USERDIR}/FvwmForm-MultipleMessages)' >> ${FVWM_USERDIR}/FvwmForm-MultipleMessages `
-+ I Schedule 100 Module FvwmForm FvwmForm-MultipleMessages
++ I Piperead `echo '*FvwmForm-Messages: Line   center' >> ${FVWM_USERDIR}/FvwmForm-Messages; \
+              echo '*FvwmForm-Messages: Button  quit \" Ok \"' >> ${FVWM_USERDIR}/FvwmForm-Messages; \
+              echo '*FvwmForm-Messages: Command !(rm -f ${FVWM_USERDIR}/FvwmForm-Messages)' >> ${FVWM_USERDIR}/FvwmForm-Messages `
++ I Schedule 100 Module FvwmForm FvwmForm-Messages
 
 
 #-----------------------------------------------------------------------
@@ -1650,7 +1678,7 @@ AddToFunc   FuncGetFvwmVersion
 + I Piperead `sed -e 's/^\\\(.*\\\)$/"\\\1\\\"/' -i $[FVWM_USERDIR]/.version`
 + I Piperead 'echo InfoStoreAdd version_str1 `head -n 1 $[FVWM_USERDIR]/.version`'
 + I Piperead 'echo InfoStoreAdd version_str2 `grep with $[FVWM_USERDIR]/.version`'
-+ I FuncShowMultipleMessages "Fvwm version Info" 2 "$[infostore.version_str1]" "$[infostore.version_str2]"
++ I FuncShowMessage "Fvwm version Info" "$[infostore.version_str1]" "$[infostore.version_str2]"
 + I Schedule 100 Piperead 'rm -f $[FVWM_USERDIR]/.version'
 + I InfoStoreRemove version_str1
 + I InfoStoreRemove version_str2
@@ -1792,12 +1820,6 @@ AddToFunc   FuncMaximizeFullScreen
 + I TestRc (!Match) Raise
 + I TestRc (!Match) UpdateStyles
 + I Maximize ewmhiwa
-
-#-----------------------------------------------------------------------
-#-----------------------------------------------------------------------
-DestroyFunc FuncWindowOpsOrAction
-AddToFunc   FuncWindowOpsOrAction
-+ I Menu MenuWindowOpsTrimmed $*
 
 #-----------------------------------------------------------------------
 #-----------------------------------------------------------------------

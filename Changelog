@@ -1,5 +1,14 @@
 History:
 
+04/06/2012 V 0.18
+- change FuncShowMultipleMessages to FuncShowMessage and delete obsolete
+  FuncShowMessage
+- add FuncAppCheck to print message in .xsessions-error if application needed for
+  full config functionality not found
+- add FuncPrintDbgMsg to print debug or other monitoring messages to .xsessions-error
+- add key bindings for print desktop and window
+- delete not used functions
+
 04/06/2012 V 0.17
 - add check "Lock screen" menu entry if xscreensaver is not running
   -> info box appear.

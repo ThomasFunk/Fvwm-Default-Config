@@ -5,6 +5,7 @@ but with all a modern desktop should have.
 Featurelist of Fvwm Default Config:
 -----------------------------------
 - 4 virtual desktop pages
+- Taskbar to show running apps per page
 - Systray (if stalonetray is installed)
 - date and time (if xclock is installed)
 - Lock desk & screensaver (if xscreensaver is installed)
@@ -20,12 +21,24 @@ Featurelist of Fvwm Default Config:
 - Dynamic menus
 - Switching focus between windows with Alt-Tab
 - Splash screen
+- Print messages for needed apps for full config functionality in .xsessions-error
+
+Default started systray apps, if stalonetray is installed:
+----------------------------------------------------------
+- Volume Icon: lightweight volume control 
+  (http://softwarebakery.com/maato/volumeicon.html)
+- fdpowermon: simple battery power monitor 
+  (http://packages-holter.debian.org/de/wheezy/fdpowermon)
+- nm-applet: gnomes network manager (http://projects.gnome.org/NetworkManager/)
+- bluetooth-applet: gnomes bluetooth applet 
+  (http://library.gnome.org/users/gnome-bluetooth/stable/gnome-bluetooth-applet.html.en)
 
 
 Keybindings:
 ------------
 
 Alt+Tab                           Switching focus between windows
+Alt+Print                         Screenshot of the whole desktop (page)
 
 Shift+Alt+F1                      Open root menu
 Shift+Alt+F2                      Launch 'run' dialog box
@@ -49,6 +62,7 @@ Shift+Ctrl+F2                     Launch FvwmConsole
 Shift+Ctrl+D                      Hide/unhide all windows
 Shift+Ctrl+L                      Lock Screen
 Shift+Ctrl+T                      Launch Terminal
+Shift+Ctrl+Print                  Screenshot of the active window
 
 -> Help message with Ctrl-Alt + C
 
@@ -88,7 +102,7 @@ Buttons:
 Left (V):
 Button 1: shows MenuWindowOpsTrimmed menu
 Button 2: shows Move to page menu
-Button 3 shows WindowOps group menu
+Button 3: shows WindowOps group menu
 
 Close (X):
 Every button close window
