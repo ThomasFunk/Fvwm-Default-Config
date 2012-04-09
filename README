@@ -15,9 +15,9 @@ Featurelist of Fvwm Default Config:
 - Animation control of window moves
 - Simple "Run" command with FvwmForm
 - Help messages for mouse bindings in titlebar, window, corners, sides 
-  and icon with Ctrl-Alt + click
-- Help messages for key bindings with Ctrl-Alt + key (see on "Keybindings")
-  A global one with Ctrl-Alt + H
+  and icon with Shift-Alt-Ctrl + click
+- Help messages for key bindings with Shift-Alt-Ctrl + key (see on "Keybindings")
+  - A global one with Shift-Alt-Ctrl + H
 - Dynamic menus
 - Switching focus between windows with Alt-Tab
 - Splash screen
@@ -40,45 +40,48 @@ Keybindings:
 Alt+Tab                           Switching focus between windows
 Alt+Print                         Screenshot of the whole desktop (page)
 
-Shift+Alt+F1                      Open root menu
-Shift+Alt+F2                      Launch 'run' dialog box
-Shift+Alt+F3                      Show window list
-Shift+Alt+F4                      Close active window
-Shift+Alt+F5                      Not used
-Shift+Alt+F6                      Cycle between same resource windows
-Shift+Alt+F7                      Move active window
-Shift+Alt+F8                      Resize active window
-Shift+Alt+F9                      Minimize active window
-Shift+Alt+F10                     Maximize/restore active window
-Shift+Alt+F11                     Maximize active window to fullscreen and back
-Shift+Alt+F12                     Identify active window
+Shift-Alt+F1                      Open root menu
+Shift-Alt+F2                      Launch 'run' dialog box
+Shift-Alt+F3                      Show window list
+Shift-Alt+F4                      Close active window
+Shift-Alt+F5                      Not used
+Shift-Alt+F6                      Cycle between same resource windows
+Shift-Alt+F7                      Move active window
+Shift-Alt+F8                      Resize active window
+Shift-Alt+F9                      Minimize active window
+Shift-Alt+F10                     Maximize/restore active window
+Shift-Alt+F11                     Maximize active window to fullscreen and back
+Shift-Alt+F12                     Identify active window
 
--> Help message with Ctrl-Alt + A
-
-
-Shift+Ctrl+F1                     Open full windows oops menu
-Shift+Ctrl+F2                     Launch FvwmConsole
-
-Shift+Ctrl+D                      Hide/unhide all windows
-Shift+Ctrl+L                      Lock Screen
-Shift+Ctrl+T                      Launch Terminal
-Shift+Ctrl+Print                  Screenshot of the active window
-
--> Help message with Ctrl-Alt + C
+-> Help message with Shift-Alt-Ctrl + A
 
 
-Alt+Ctrl+cursor right             Switch to page right
-Alt+Ctrl+cursor left              Switch to page left
+Shift-Ctrl+F1                     Open full windows oops menu
+Shift-Ctrl+F2                     Launch FvwmConsole
 
-Shift+Alt+Ctrl+cursor right       Scroll right by 10% of a page
-Shift+Alt+Ctrl+cursor left        Scroll left by 10% of a page
+Shift-Ctrl+D                      Hide/unhide all windows
+Shift-Ctrl+L                      Lock Screen
+Shift-Ctrl+T                      Launch Terminal
+Shift-Ctrl+Print                  Screenshot of the active window
 
-Shift+Alt+cursor right            Move mouse pointer right by 1% of a page
-Shift+Alt+cursor left             Move mouse pointer left by 1% of a page
-Shift+Alt+cursor up               Move mouse pointer up by 1% of a page
-Shift+Alt+cursor down             Move mouse pointer down by 1% of a page
+-> Help message with Shift-Alt-Ctrl + C
 
--> Help message with Ctrl-Alt + P
+
+Shift-Ctrl+cursor right           Switch to page right
+Shift-Ctrl+cursor left            Switch to page left
+
+Shift-Alt+Cursor right            Switch to page right with active window
+Shift-Alt+Cursor left             Switch to page left with active window
+
+Shift-Alt-Ctrl+cursor right       Scroll right by 10% of a page
+Shift-Alt-Ctrl+cursor left        Scroll left by 10% of a page
+
+Ctrl-Alt+cursor right             Move mouse pointer right by 1% of a page
+Ctrl-Alt+cursor left              Move mouse pointer left by 1% of a page
+Ctrl-Alt+cursor up                Move mouse pointer up by 1% of a page
+Ctrl-Alt+cursor down              Move mouse pointer down by 1% of a page
+
+-> Help message with Shift-Alt-Ctrl + P
 
 
 Mouse bindings:
@@ -97,45 +100,59 @@ Window:
   |                                                          |
 
 
-Buttons:
---------
 Left (V):
+---------
 Button 1: shows MenuWindowOpsTrimmed menu
 Button 2: shows Move to page menu
 Button 3: shows WindowOps group menu
 
 Close (X):
+----------
 Every button close window
 
 Maximize (+):
+-------------
 Button 1: maximize window
 Button 2: maximize window vertically
 Button 3: maximize window horizontally
 
 Minimize (-):
+-------------
 Button 1: iconify window
 Button 2: iconify group of same window resources
 Button 3: iconify/deiconify group of same window resources
-
 
 Mouse on windows decoration:
 ----------------------------
 Titlebar, corners and sides:
 Button 1:   Drag moves window, maximize on double click
 Button 2:   Drag moves window, raise or lower with click
-Button 3:   MenuWindowOpsTrimmed menu with click, MenuWindowOpsFull menu with ALT + click
+Button 3:   WindowOpsTrimmed menu with click, MenuWindowOpsFull menu with 
+            ALT + click
 Button 4/5: Rolling wheel on titlebar up/down shades/unshades
 
-Window area:
+Mouse on window area:
+---------------------
 Button 1:   Root menu with ALT + click
 Button 2:   Drag + ALT moves window, raise or lower with ALT + click
 
-
 Mouse on Icons (iconified):
 ---------------------------
-Button 1:   Drag moves icon, deiconify with double click, root menu with ALT + click
-Button 2:   Deiconify icon with click, all of the same resource group with CTRL + click
-Button 3:   MenuWindowOpsTrimmed menu with click
+Button 1:   Drag moves icon, deiconify with double click, root menu with 
+            ALT + click
+Button 2:   Deiconify icon with click, all of the same resource group with 
+            CTRL + click
+Button 3:   WindowOpsTrimmed menu with click
 
+Mouse on Root area:
+-------------------
+Button 1:   Root menu
+Button 2:   Window list
+Button 3:   WindowOpsFull menu
 
+Anywhere:
+---------
+Button 4/5: Switch to page left/right with ALT + rolling wheel up/down anywhere
+Button 4/5: Switch with active window to page left/right with CTRL + rolling 
+            wheel up/down anywhere
 

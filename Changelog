@@ -1,5 +1,15 @@
 History:
 
+04/09/2012 V 0.19
+- change caption formating for better view
+- change help windows from CTRL-ALT to SHIFT-CTRL-ALT
+- harmonize 
+  - GotoPage with cursor and mouse to SHIFT-CTRL + mouse/key
+  - MoveWindowToPage with cursor and mouse to SHIFT-ALT + mouse/key
+- change MoveCursor from SHIFT-ALT to CTRL-ALT
+- add FuncGotoPage which pick up the focus to the switched page
+- updating existing key bindings in menus
+
 04/06/2012 V 0.18
 - change FuncShowMultipleMessages to FuncShowMessage and delete obsolete
   FuncShowMessage
