@@ -6,7 +6,7 @@
 #  ) ( .  \  /* \    //    \ .
 # (___)  * \/  . \/\/(_/\/\_)    2.6.4
 #
-# FVWM Default Configuration V 0.19
+# FVWM Default Configuration V 0.19.1
 # Copyright (C) 2012 fvwm.org
 #
 # Authors:
@@ -885,8 +885,7 @@ Mouse 0 	    6	      SCM  FuncShowMessage  "Minimize Button Bindings" \
 Mouse 1 	    T 	    A	      FuncMoveOrRaiseOrMaximize
 # Button 1 in the corners or sides, with any modifiers, gives
 # resize <- drag, raise <- click or maximize <- double click
-Mouse 1 	    SF	    A       FuncMoveOrRaiseOrMaximize
-#Mouse 1 	    TSF	    S	      FuncResizeOrRaiseOrShade Maximize
+Mouse 1 	    SF	    A       FuncResizeOrRaiseOrMaximize
 # Button 2 in the titlebar, corners or sides, with any modifiers, gives
 # move <- drag, raise/lower <- click
 Mouse 2       TSF	    A	      FuncMoveOrRaiseLower
@@ -1339,8 +1338,7 @@ PipeRead 'echo *FvwmGlobalIconMan: 1 ManagerGeometry  1x0+$(($[infostore.fontsiz
 #=======================================================================
 # 5.8 FvwmPager
 #=======================================================================
-#Style FvwmPager !Title, Sticky, WindowListSkip, StaysOnTop, FixedSize, FixedPosition, HandleWidth 1
-Style FvwmPager !Title, Sticky, WindowListSkip, StaysOnTop, FixedSize, FixedPosition, HandleWidth 1, Iconifiable
+Style FvwmPager !Title, Sticky, WindowListSkip, StaysOnTop, FixedSize, FixedPosition, HandleWidth 1
 #Style FvwmPager NoTitle, !Handles, Borders, Sticky, StaysOnTop, Iconifiable, PositionPlacement center
 
 DestroyModuleConfig FvwmPager: *
@@ -1806,7 +1804,7 @@ AddToFunc   FuncHibernate
 
 
 #=======================================================================
-# 6.3 Window / Icon
+# 6.3 Window/Icon
 #=======================================================================
 
 #-----------------------------------------------------------------------
@@ -1822,14 +1820,14 @@ AddToFunc   FuncMoveOrRaiseOrMaximize
 
 #-----------------------------------------------------------------------
 # This one resizes and then raises the window if you drag the mouse, only
-# raises the window if you click,  or does shade if you double click
+# raises the window if you click,  or maximize if you double click
 #-----------------------------------------------------------------------
-DestroyFunc FuncResizeOrRaiseOrShade
-AddToFunc   FuncResizeOrRaiseOrShade
+DestroyFunc FuncResizeOrRaiseOrMaximize
+AddToFunc   FuncResizeOrRaiseOrMaximize
 + H	Resize $0
 + M	Resize $0
 + C	Raise
-+ D	WindowShade
++ D	Maximize
 
 #-----------------------------------------------------------------------
 # This one moves the window if you drag the mouse and RaiseLower if you click
@@ -1973,6 +1971,16 @@ DestroyFunc FuncGotoPage
 AddToFunc FuncGotoPage
 + I GotoPage $0 $1
 + I Next (CurrentPage, !Iconic, !Sticky, !Shaded, !Focused, !Overlapped) FuncSelectWindow
+
+#-----------------------------------------------------------------------
+# Move window to top layer and next time back to default
+#-----------------------------------------------------------------------
+DestroyFunc FuncStaysOnTopAndBack
+AddToFunc FuncStaysOnTopAndBack
++ I ThisWindow (Layer 2) Pick (CirculateHit) Layer 0 6
++ I TestRc (!Match) Pick (CirculateHit) Layer default
++ I Raise
+
 
 #-----------------------------------------------------------------------
 # Sometimes windows will be placed outside the screen area and only a
@@ -2228,14 +2236,14 @@ AddToFunc FuncMenuXConfiguration
 + I DestroyMenu MenuXConfiguration
 + I AddToMenu MenuXConfiguration DynamicPopupAction FuncMenuXConfiguration
 + I AddToMenu MenuXConfiguration "$[gt.&X Configuration]" Title
-+ I AddToMenu MenuXConfiguration "$[gt.&Bell]%menu/sound.xpm%"                 FvwmScript FvwmScript-BellSetup
-+ I AddToMenu MenuXConfiguration "$[gt.&KeyBoard]%menu/keyboard.xpm%"          FvwmScript FvwmScript-KeyboardSetup
-+ I AddToMenu MenuXConfiguration "$[gt.&Screen]%menu/display.xpm%"             FvwmScript FvwmScript-ScreenSetup
-+ I AddToMenu MenuXConfiguration "$[gt.&Mouse]%menu/mouse.xpm%"                FvwmScript FvwmScript-PointerSetup
++ I AddToMenu MenuXConfiguration "$[gt.&Bell]%menu/sound.xpm%"                FvwmScript FvwmScript-BellSetup
++ I AddToMenu MenuXConfiguration "$[gt.&KeyBoard]%menu/keyboard.xpm%"         FvwmScript FvwmScript-KeyboardSetup
++ I AddToMenu MenuXConfiguration "$[gt.&Screen]%menu/display.xpm%"            FvwmScript FvwmScript-ScreenSetup
++ I AddToMenu MenuXConfiguration "$[gt.&Mouse]%menu/mouse.xpm%"               FvwmScript FvwmScript-PointerSetup
 + I Test (x xscreensaver-command) \
     AddToMenu MenuXConfiguration "$[gt.Sc&reen Saver]%menu/display.xpm%"      Popup MenuXScreenSaver
 + I TestRc (NoMatch) \
-    AddToMenu MenuXConfiguration "$[gt.Sc&reen Saver]%menu/display.xpm%"       FuncShowMessage \
+    AddToMenu MenuXConfiguration "$[gt.Sc&reen Saver]%menu/display.xpm%"      FuncShowMessage \
                                                                                 "Screensaver Info" \
                                                                                 "Install xscreensaver for full functionality"                                                                                
 + I AddToMenu MenuXConfiguration "" Nop
@@ -2263,26 +2271,26 @@ AddToFunc   FuncMenuFvwmQuit
 + I DestroyMenu MenuFvwmQuit
 + I AddToMenu MenuFvwmQuit DynamicPopupAction FuncMenuFvwmQuit
 + I AddToMenu MenuFvwmQuit "$[gt.Really Quit FVWM]?" Title
-+ I AddToMenu MenuFvwmQuit "$[gt.&Restart]%menu/restart.xpm%"              Restart
++ I AddToMenu MenuFvwmQuit "$[gt.&Restart]%menu/restart.xpm%"             Restart
 + I AddToMenu MenuFvwmQuit "" Nop
-+ I AddToMenu MenuFvwmQuit "$[gt.Re&fresh Screen]%menu/refresh.xpm%"       Refresh
-+ I AddToMenu MenuFvwmQuit "$[gt.Re&capture Screen]%menu/refresh.xpm%"     Recapture
++ I AddToMenu MenuFvwmQuit "$[gt.Re&fresh Screen]%menu/refresh.xpm%"      Refresh
++ I AddToMenu MenuFvwmQuit "$[gt.Re&capture Screen]%menu/refresh.xpm%"    Recapture
 + I AddToMenu MenuFvwmQuit "" Nop
 + I Test (x pm-is-supported) \
-    AddToMenu MenuFvwmQuit "$[gt.&Suspend System]%menu/system.xpm%"      FuncSuspend
+    AddToMenu MenuFvwmQuit "$[gt.&Suspend System]%menu/system.xpm%"       FuncSuspend
 + I TestRc (NoMatch) \
-    AddToMenu MenuFvwmQuit "$[gt.&Suspend System]%menu/system.xpm%"      FuncShowMessage \
+    AddToMenu MenuFvwmQuit "$[gt.&Suspend System]%menu/system.xpm%"       FuncShowMessage \
                                                                                 "Suspend Info" \
                                                                                 "Install pm-utils for full functionality"                                                                                
 + I Test (x pm-is-supported) \
-    AddToMenu MenuFvwmQuit "$[gt.&Hibernate System]%menu/system.xpm%"      FuncHibernate
+    AddToMenu MenuFvwmQuit "$[gt.&Hibernate System]%menu/system.xpm%"     FuncHibernate
 + I TestRc (NoMatch) \
-    AddToMenu MenuFvwmQuit "$[gt.&Hibernate System]%menu/system.xpm%"      FuncShowMessage \
+    AddToMenu MenuFvwmQuit "$[gt.&Hibernate System]%menu/system.xpm%"     FuncShowMessage \
                                                                                 "Suspend Info" \
                                                                                 "Install pm-utils for full functionality"                                                                                
 + I AddToMenu MenuFvwmQuit "" Nop
-+ I AddToMenu MenuFvwmQuit "$[gt.&Yes, Really Quit]%menu/choice-yes.xpm%"  Quit
-+ I AddToMenu MenuFvwmQuit "$[gt.&No, Don't Quit]%menu/choice-no.xpm%"     Nop
++ I AddToMenu MenuFvwmQuit "$[gt.&Yes, Really Quit]%menu/choice-yes.xpm%" Quit
++ I AddToMenu MenuFvwmQuit "$[gt.&No, Don't Quit]%menu/choice-no.xpm%"    Nop
 
 #=======================================================================
 # 7.6 Window Ops menus
@@ -2293,45 +2301,52 @@ AddToMenu   MenuWindowOpsFull
 + "$[gt.Window Operations]" Title
 + "$[gt.&Move]	Shift-Alt-F7%menu/window-move.xpm%"                 Move
 + "$[gt.&Resize]	Shift-Alt+F8%menu/window-resize.xpm%"             Resize
-+ "$[gt.(De)&Iconify]	Shift-Alt+F9%menu/window-iconify.xpm%"       Iconify
-+ "$[gt.(Un)Ma&ximize]	Shift-Alt+F10%menu/window-maximize.xpm%"     Maximize
-+ "$[gt.(Un)&Shade]%menu/window-shade.xpm%"            WindowShade
-+ "$[gt.(Un)S&tick]%menu/window-stick.xpm%"            Stick
-+ "$[gt.R&aise]%menu/window-raise.xpm%"               Raise
-+ "$[gt.&Lower]%menu/window-lower.xpm%"               Lower
++ "$[gt.(De)&Iconify]	Shift-Alt+F9%menu/window-iconify.xpm%"        Iconify
++ "$[gt.(Un)Ma&ximize]	Shift-Alt+F10%menu/window-maximize.xpm%"    Maximize
++ "$[gt.(Un)&Shade]%menu/window-shade.xpm%"             WindowShade
++ "$[gt.(Un)S&tick]%menu/window-stick.xpm%"             Stick "toggle"
++ "$[gt.R&aise]%menu/window-raise.xpm%"                 Raise
++ "$[gt.&Lower]%menu/window-lower.xpm%"                 Lower
 + "" Nop
-+ "$[gt.&Delete]%menu/window-delete.xpm%"             Delete
-+ "$[gt.&Close]	Shift-Alt+F4%menu/window-close.xpm%"               Close
-+ "$[gt.&Destroy]%menu/window-destroy.xpm%"            Destroy
++ "$[gt.&Delete]%menu/window-delete.xpm%"               Delete
++ "$[gt.&Close]	Shift-Alt+F4%menu/window-close.xpm%"    Close
++ "$[gt.&Destroy]%menu/window-destroy.xpm%"             Destroy
 + "" Nop
-+ "$[gt.Move to &Page]%menu/window-move.xpm%"          Popup MenuWindowMoveTo
-+ "$[gt.&Group Operations]%menu/windows.xpm%"          Popup MenuWindowGroupOps
-+ "$[gt.&Window Style]%menu/window.xpm%"               Popup MenuWindowStyle
-+ "$[gt.&Maximize Window]%menu/window-maximize.xpm%"   Popup MenuWindowMaximize
-+ "$[gt.&Refresh Window]%menu/refresh.xpm%"            Popup MenuWindowRefresh
-+ "$[gt.R&earrange All]%menu/refresh.xpm%"             Popup MenuRearrangeWindows
-+ "$[gt.Window &Utility]%menu/utility.xpm%"            Popup MenuWindowUtility
++ "$[gt.Move to &Page]%menu/window-move.xpm%"           Popup MenuWindowMoveTo
++ "$[gt.&Group Operations]%menu/windows.xpm%"           Popup MenuWindowGroupOps
++ "$[gt.&Window Style]%menu/window.xpm%"                Popup MenuWindowStyle
++ "$[gt.&Maximize Window]%menu/window-maximize.xpm%"    Popup MenuWindowMaximize
++ "$[gt.&Refresh Window]%menu/refresh.xpm%"             Popup MenuWindowRefresh
++ "$[gt.R&earrange All]%menu/refresh.xpm%"              Popup MenuRearrangeWindows
++ "$[gt.Window &Utility]%menu/utility.xpm%"             Popup MenuWindowUtility
 + "" Nop
 + "$[gt.&Identify]	Shift-Alt+F12%menu/window-identify.xpm%"          Module FvwmIdent
-+ "$[gt.Sw&itch to...(WinList)]	Shift-Alt+F3%menu/windows.xpm%"              WindowList
++ "$[gt.Sw&itch to...(WinList)]	Shift-Alt+F3%menu/windows.xpm%"       WindowList
 
 #-----------------------------------------------------------------------
 # A trimmed down version of MenuWindowOps, good for binding to decorations
 #-----------------------------------------------------------------------
-DestroyMenu MenuWindowOpsTrimmed
-AddToMenu   MenuWindowOpsTrimmed
-+   "$[gt.Re&store]	Shift-Alt+F10%menu/window.xpm%"            FuncRestore
-+     "$[gt.&Move]	Shift-Alt+F7%menu/window-move.xpm%"       Move
-+   "$[gt.&Resize]	Shift-Alt+F8%menu/window-resize.xpm%"     Resize
-+  "$[gt.&Iconify]	%menu/window-iconify.xpm%"    Iconify
-+ "$[gt.Ma&ximize]	Shift-Alt+F10%menu/window-maximize.xpm%"  Maximize
-+ "$[gt.Stays On &Top]%menu/window-raise.xpm%"           Pick (CirculateHit) Layer 0 6
-+ "$[gt.(Un)&Stick]%menu/window-stick.xpm%"              Stick
-+ "" Nop
-+    "$[gt.&Close]	Shift-Alt+F4%menu/window-close.xpm%"      Close
-+ "" Nop
-+  "$[gt.&Identify]	Shift-Alt+F12%menu/window-identify.xpm%"  Module FvwmIdent
-+  "$[gt.Mor&e...]	%menu/window.xpm%"            Menu MenuWindowOpsFull This 0 0
+AddToMenu MenuWindowOpsTrimmed DynamicPopupAction FuncMenuWindowOpsTrimmed
+
+DestroyFunc FuncMenuWindowOpsTrimmed
+AddToFunc   FuncMenuWindowOpsTrimmed
++ I DestroyMenu MenuWindowOpsTrimmed
++ I AddToMenu MenuWindowOpsTrimmed DynamicPopupAction FuncMenuWindowOpsTrimmed
++ I AddToMenu MenuWindowOpsTrimmed "$[gt.Re&store]	Shift-Alt+F10%menu/window.xpm%"         FuncRestore
++ I AddToMenu MenuWindowOpsTrimmed "$[gt.&Move]	Shift-Alt+F7%menu/window-move.xpm%"         Move
++ I AddToMenu MenuWindowOpsTrimmed "$[gt.&Resize]	Shift-Alt+F8%menu/window-resize.xpm%"     Resize
++ I AddToMenu MenuWindowOpsTrimmed "$[gt.&Iconify]	%menu/window-iconify.xpm%"    Iconify
++ I AddToMenu MenuWindowOpsTrimmed "$[gt.Ma&ximize]	Shift-Alt+F10%menu/window-maximize.xpm%"  Maximize
++ I ThisWindow (Layer 2) \
+    AddToMenu MenuWindowOpsTrimmed "$[gt.Stays On &Top]%menu/window-raise.xpm%"             FuncStaysOnTopAndBack
++ I TestRc (NoMatch) \
+    AddToMenu MenuWindowOpsTrimmed "$[gt.Stays &Back]%menu/window-lower.xpm%"               FuncStaysOnTopAndBack
++ I AddToMenu MenuWindowOpsTrimmed "$[gt.(Un)&Stick]%menu/window-stick.xpm%"                Stick "toggle"
++ I AddToMenu MenuWindowOpsTrimmed "" Nop
++ I AddToMenu MenuWindowOpsTrimmed "$[gt.&Close]	Shift-Alt+F4%menu/window-close.xpm%"      Close
++ I AddToMenu MenuWindowOpsTrimmed "" Nop
++ I AddToMenu MenuWindowOpsTrimmed "$[gt.&Identify]	Shift-Alt+F12%menu/window-identify.xpm%"  Module FvwmIdent
++ I AddToMenu MenuWindowOpsTrimmed "$[gt.Mor&e...]	%menu/window.xpm%"            Menu MenuWindowOpsFull This 0 0
 
 #-----------------------------------------------------------------------
 # Resource window group operations for the root menu and buttons
