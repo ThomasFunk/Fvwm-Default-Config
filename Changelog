@@ -1,4 +1,8 @@
 History:
+
+04/13/2012 V 0.19.2
+- fix formating missmatches
+
 04/13/2012 V 0.19.1
 - fix resize bug with mouse 1 in corner/sides
 - fix bug with "Stays on top" in FuncMenuWindowOpsTrimmed
