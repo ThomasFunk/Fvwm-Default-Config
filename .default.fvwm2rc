@@ -6,7 +6,7 @@
 #  ) ( .  \  /* \    //    \ .
 # (___)  * \/  . \/\/(_/\/\_)    2.6.4
 #
-# FVWM Default Configuration V 0.19.2
+# FVWM Default Configuration V 0.20
 # Copyright (C) 2012 fvwm.org
 #
 # Authors:
@@ -104,6 +104,8 @@
 #     5.2 FvwmBacker
 #     5.3 FvwmBanner
 #     5.4 FvwmEvent
+#	  5.4.1 Common FvwmEvents
+#	  5.4.2 Sound FvwmEvents
 #     5.5 FvwmForm
 #         5.5.1 RunCommand
 #     5.6 FvwmIdent
@@ -513,14 +515,17 @@ ButtonStyle 6 - Clear MWMDecorMin
 #***********************************************************************
 # 2.4.5 Icons
 #***********************************************************************
-# If an window has no icon associated, then the below will use
-Style Untitled    EWMHMiniIconOverride, Icon menu/unknown.xpm, MiniIcon menu/unknown.xpm
-Style NoClass     EWMHMiniIconOverride, Icon menu/unknown.xpm, MiniIcon menu/unknown.xpm
-Style NoResource  EWMHMiniIconOverride, Icon menu/unknown.xpm, MiniIcon menu/unknown.xpm
-Style X*          EWMHMiniIconOverride, Icon menu/unknown.xpm, MiniIcon menu/unknown.xpm
-Style Fvwm*       EWMHMiniIconOverride, Icon menu/game.xpm, MiniIcon menu/game.xpm
-Style error       EWMHMiniIconOverride, Icon menu/window-close.xpm, MiniIcon menu/window-close.xpm
-Style FvwmIdent   EWMHMiniIconOverride, Icon menu/window-identify.xpm, MiniIcon menu/window-identify.xpm
+# If a window has no icon associated, then the below will use.
+# Remark: UseStyle is deprecated and will be removed in the future.
+#         There are plans to replace it with a more flexible solution
+#         in fvwm-3.0.
+Style Untitled    UseStyle *, EWMHMiniIconOverride, Icon unknown1.xpm, MiniIcon mini.x.xpm
+Style NoClass     UseStyle Untitled
+Style NoResource  UseStyle Untitled
+Style X*          UseStyle Untitled
+Style Fvwm*       UseStyle *, EWMHMiniIconOverride, Icon fvwm.xpm, MiniIcon mini.f1.xpm
+Style error       UseStyle *, EWMHMiniIconOverride, Icon bomb.xpm, MiniIcon mini.bomb.xpm
+Style FvwmIdent   UseStyle *, EWMHMiniIconOverride, Icon question.xpm, MiniIcon mini.question.xpm
 
 #***********************************************************************
 # 2.4.6 Applications
@@ -622,8 +627,8 @@ PipeRead 'echo EwmhBaseStruts 0 0 $(($[infostore.fvwm_pager_height]+3)) 0'
 # to right. To fill an icon box in columns instead of rows, specify the
 # vertical direction (top or bottom) first.
 #-----------------------------------------------------------------------
-Style * IconBox 20 40 100 -20, \
-        IconGrid 50 50, \
+Style * IconBox 20 80 -100 -20, \
+        IconGrid 40 40, \
         IconFill top left, \
         StaysOnBottom
 
@@ -946,7 +951,10 @@ Mouse 2		I	A	FuncIconify
 Mouse 2		I	C	FuncIconifySameResource toggle
 # Button 3 in icon, with any modifiers, gives
 # WindowOps2 menu <- click
-Mouse 3		I	A	Menu MenuWindowGroupOps
+Mouse 3		I	A	Menu MenuWindowOpsTrimmed
+# Button 3 in icon, with CTRL key, gives
+# WindowGroupOps menu
+Mouse 3		I	C	Menu MenuWindowGroupOps
 
 
 #-----------------------------------------------------------------------
@@ -959,7 +967,8 @@ Mouse 0		I       SCM     FuncShowMessage  "Mouse Bindings for Icons" \
 "           Root menu with ALT + click" \
 "Mouse 2:   Deiconify icon with click" \
 "           All of same resource group with CTRL + click" \
-"Mouse 3:   WindowOpsTrimmed menu"
+"Mouse 3:   WindowOpsTrimmed menu with click" \
+"           WindowGroupOps menu with CTRL + click"
 
 #***********************************************************************
 # 4.1.5. Pointer in Window (and in Icon for consistency)
@@ -1229,24 +1238,37 @@ Test (I banner.fvwm_cat_thing.xpm) *FvwmBanner: Pixmap banner.fvwm_cat_thing.xpm
 #=======================================================================
 # 5.4 FvwmEvent
 #=======================================================================
-DestroyModuleConfig FvwmEvent: *
+
+#***********************************************************************
+# 5.4.1 Common FvwmEvents
+#***********************************************************************
+DestroyModuleConfig FvwmEventCommon: *
+
+*FvwmEventCommon: StartDelay 3
+*FvwmEventCommon: Delay 1
+
+*FvwmEventCommon: enter_window      FE-EnterWindow
+
+#***********************************************************************
+# 5.4.1 Sound FvwmEvents
+#***********************************************************************
+DestroyModuleConfig FvwmEventSound: *
 
 # replace rplay by a sound player that can play .au sound file
 #*FvwmEvent: Cmd "Exec exec rplay "
 
-*FvwmEvent: StartDelay 3
-*FvwmEvent: Delay 1
+*FvwmEventSound: StartDelay 3
+*FvwmEventSound: Delay 1
 
-#*FvwmEvent: startup          "/usr/share/sounds/gong.au"
-#*FvwmEvent: add_window       "/usr/share/sounds/wipe.au"
-#*FvwmEvent: destroy_window   "/usr/share/sounds/pook.au"
-#*FvwmEvent: iconify          "/usr/share/sounds/clong.au"
-#*FvwmEvent: deiconify        "/usr/share/sounds/clong.au"
-#*FvwmEvent: windowshade      "/usr/share/sounds/slide.au"
-#*FvwmEvent: dewindowshade    "/usr/share/sounds/slide.au"
-#*FvwmEvent: new_page         "/usr/share/sounds/slide.au"
-*FvwmEvent: enter_window      FE-EnterWindow
-#*FvwmEvent: new_page foo
+#*FvwmEventSound: startup          "/usr/share/sounds/gong.au"
+#*FvwmEventSound: add_window       "/usr/share/sounds/wipe.au"
+#*FvwmEventSound: destroy_window   "/usr/share/sounds/pook.au"
+#*FvwmEventSound: iconify          "/usr/share/sounds/clong.au"
+#*FvwmEventSound: deiconify        "/usr/share/sounds/clong.au"
+#*FvwmEventSound: windowshade      "/usr/share/sounds/slide.au"
+#*FvwmEventSound: dewindowshade    "/usr/share/sounds/slide.au"
+#*FvwmEventSound: new_page         "/usr/share/sounds/slide.au"
+
 
 #=======================================================================
 # 5.5 FvwmForm
@@ -1290,7 +1312,8 @@ DestroyModuleConfig FvwmIdent: *
 #***********************************************************************
 # 5.7.1 Global FvwmIconMan ("Taskbar")
 #***********************************************************************
-Style FvwmGlobalIconMan !Title, Sticky, WindowListSkip, StaysOnBottom, HandleWidth 1, !State 1
+#Style FvwmGlobalIconMan !Title, Sticky, WindowListSkip, StaysOnBottom, HandleWidth 1, !State 1
+Style FvwmGlobalIconMan TitleAtRight, !Button 1, !Button 2, !Button 4, !Button 6, Sticky, WindowListSkip, StaysOnBottom, HandleWidth 1, !State 1
 
 DestroyModuleConfig FvwmGlobalIconMan: *
 *FvwmGlobalIconMan: 1 IconName                GlobalIconMan
@@ -1412,7 +1435,9 @@ AddToFunc StartFunction
 # activate animation module used with iconiy for example
 + I Module FvwmAnimate
 # activate module for event actions
-+ I Module FvwmEvent
++ I Module FvwmEvent FvwmEventCommon
+# activate module for sound event actions
+#+ I Module FvwmEvent FvwmEventSound
 # start window list module
 + I Module FvwmIconMan FvwmGlobalIconMan
 # start pager

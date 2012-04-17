@@ -1,5 +1,17 @@
 History:
 
+04/14/2012 V 0.20
+- split FvwmEvent into 
+  -> FvwmEventCommon - for common events
+  -> FvwmEventSound - for sound events
+- fix bugs on iconified apps
+  -> Mouse 3: WindowOpsTrimmed menu with click
+  ->          WindowGroupOps menu with CTRL + click
+  -> wrong positioning in iconbox
+  -> for some apps (Untitled, NoClass, NoResource, Fvwm*, etc)
+     too small icons
+
+
 04/13/2012 V 0.19.2
 - fix formating missmatches
 
