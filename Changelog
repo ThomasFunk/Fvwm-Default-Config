@@ -1,5 +1,18 @@
 History:
 
+04/14/2012 V 0.21
+- remove Style Fvwm* EWMHMiniIconOverride, Icon fvwm.xpm, MiniIcon mini.f1.xpm
+  because name matches first and not classes. On the other hand too few windows
+  are fvwm windows so ...
+- create a seperate FvwmScript FvwmScript-PersonalMenu to create personal menus.
+  It should be copied to $FVWM_USERDIR or /usr/share/fvwm/.
+- Add a dynamic personal menu created with FvwmScript-PersonalMenu. The file .personal
+  located in $FVWM_USERDIR will read.
+- change the name 'menu' for the menu file created by fvwm-menu-desktop into
+  .menu
+- add xscreensaver to StartFunction for locking
+- fix formating missmatches
+
 04/14/2012 V 0.20
 - split FvwmEvent into 
   -> FvwmEventCommon - for common events
@@ -10,7 +23,6 @@ History:
   -> wrong positioning in iconbox
   -> for some apps (Untitled, NoClass, NoResource, Fvwm*, etc)
      too small icons
-
 
 04/13/2012 V 0.19.2
 - fix formating missmatches

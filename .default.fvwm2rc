@@ -6,7 +6,7 @@
 #  ) ( .  \  /* \    //    \ .
 # (___)  * \/  . \/\/(_/\/\_)    2.6.4
 #
-# FVWM Default Configuration V 0.20
+# FVWM Default Configuration V 0.21
 # Copyright (C) 2012 fvwm.org
 #
 # Authors:
@@ -178,6 +178,7 @@ InfoStoreAdd fvwm_wallpaper $[FVWM_USERDIR]/.wallpaper
 
 # actual pager height. Needed for the "top bar" modules
 PipeRead 'echo InfoStoreAdd fvwm_pager_height $(($[vp.height]/25))'
+
 
 #***********************************************************************
 # 1.2.2 Default environment settings
@@ -523,7 +524,6 @@ Style Untitled    UseStyle *, EWMHMiniIconOverride, Icon unknown1.xpm, MiniIcon 
 Style NoClass     UseStyle Untitled
 Style NoResource  UseStyle Untitled
 Style X*          UseStyle Untitled
-Style Fvwm*       UseStyle *, EWMHMiniIconOverride, Icon fvwm.xpm, MiniIcon mini.f1.xpm
 Style error       UseStyle *, EWMHMiniIconOverride, Icon bomb.xpm, MiniIcon mini.bomb.xpm
 Style FvwmIdent   UseStyle *, EWMHMiniIconOverride, Icon question.xpm, MiniIcon mini.question.xpm
 
@@ -1423,13 +1423,14 @@ AddToFunc StartFunction
 # check for apps needed for full config functionality
 + I Test (Init) FuncAppCheck
 # create an Applications menu if not exist
-+ I Test (!f $[FVWM_USERDIR]/menu) Exec fvwm-menu-desktop > $[FVWM_USERDIR]/menu
++ I Test (!f $[FVWM_USERDIR]/.menu) Exec fvwm-menu-desktop > $[FVWM_USERDIR]/.menu
 # show splash sceen
 + I Test (Init) Module FvwmBanner
 # set the root background image with Esetroot or if no image found start
 # default Fvwm background
-+ I Test (I $[infostore.fvwm_wallpaper]) Exec exec Esetroot -scale $[infostore.fvwm_wallpaper]
-+ I TestRC (NoMatch) Module FvwmBacker
++ I Test (I $[infostore.fvwm_wallpaper])
++ I TestRC (Match) Exec exec Esetroot -scale $[infostore.fvwm_wallpaper]
++ I TestRC (!Match) Module FvwmBacker
 # activate automatical raise of windows
 + I Module FvwmAuto 300
 # activate animation module used with iconiy for example
@@ -1450,6 +1451,9 @@ AddToFunc StartFunction
 + I Test (Init) FuncStartSysTray
 # start systray applets
 + I Test (Init) FuncStartSystrayApplets
+# start xscreensaver daemon for locking
++ I Test (x xscreensaver-command) 
++ I TestRC (Match) Test (Init) Exec Exec xscreensaver -no-splash
 
 #***********************************************************************
 # 6.1.3 Session
@@ -1473,7 +1477,7 @@ AddToFunc SessionRestartFunction
 #-----------------------------------------------------------------------
 DestroyFunc FuncPrintDbgMsg
 AddToFunc   FuncPrintDbgMsg
-+ I Piperead `echo "[fvwm]$0: $1" >> ${HOME}/.xsession-errors`
++ I PipeRead `echo "[fvwm]$0: $1" >> ${HOME}/.xsession-errors`
 
 #-----------------------------------------------------------------------
 # Check which appliction are installed to get full functionality
@@ -1592,12 +1596,12 @@ AddToFunc   FuncViewFileTail
 #-----------------------------------------------------------------------
 DestroyFunc FuncWindowCreateScreenshot
 AddToFunc   FuncWindowCreateScreenshot
-+ I Piperead 'echo InfoStoreAdd picpath "$[FVWM_USERDIR]/screenshot-`date +%F-%k%M%S`.$[w.id].png"'
++ I PipeRead 'echo InfoStoreAdd picpath "$[FVWM_USERDIR]/screenshot-`date +%F-%k%M%S`.$[w.id].png"'
 + I Test (x import) ThisWindow (!Shaded, !Iconic, Iconifiable) \
                   Exec import -frame -window $[w.id] $[infostore.picpath]
 + I TestRc (Match)  FuncShowMessage "$[gt.Screenshot Info for window] $[w.id]" \
                                     "Screenshot created: $[infostore.picpath]"
-+ I TestRc (NoMatch) FuncShowMessage "$[gt.Screenshot Info for window] $[w.id]" \
++ I TestRc (!Match) FuncShowMessage "$[gt.Screenshot Info for window] $[w.id]" \
                                     "ImageMagick isn't installed. No screenshot created."
 + I InfoStoreRemove picpath
 
@@ -1606,35 +1610,35 @@ AddToFunc   FuncWindowCreateScreenshot
 #-----------------------------------------------------------------------
 DestroyFunc FuncDesktopCreateScreenshot
 AddToFunc   FuncDesktopCreateScreenshot
-+ I Piperead 'echo InfoStoreAdd picpath "$[FVWM_USERDIR]/screenshot-`date +%F-%k%M%S`.png"'
++ I PipeRead 'echo InfoStoreAdd picpath "$[FVWM_USERDIR]/screenshot-`date +%F-%k%M%S`.png"'
 + I Test (x import) Exec import -window root $[picpath]
 + I TestRc (Match)  FuncShowMessage "$[gt.Screenshot Info for the desktop]" \
                                     "Screenshot created: $[infostore.picpath]"
-+ I TestRc (NoMatch) FuncShowMessage "$[gt.Screenshot Info for the desktop]" \
++ I TestRc (!Match) FuncShowMessage "$[gt.Screenshot Info for the desktop]" \
                                     "ImageMagick isn't installed. No screenshot created."
 + I InfoStoreRemove picpath
 
 
 #-----------------------------------------------------------------------
 # Shows a FvwmForm Infobox with one or multiple message line(s)
-# realized with shell commands over Piperead
+# realized with shell commands over PipeRead
 #-----------------------------------------------------------------------
 # Example:
 # FuncShowMessage "<title>" "<message_1>" ... "<message_n>"
 DestroyFunc FuncShowMessage
 AddToFunc   FuncShowMessage
-+ I Piperead `echo 'DestroyModuleConfig  FvwmForm-Messages: *' > ${FVWM_USERDIR}/FvwmForm-Messages; \
++ I PipeRead `echo 'DestroyModuleConfig  FvwmForm-Messages: *' > ${FVWM_USERDIR}/FvwmForm-Messages; \
               echo '*FvwmForm-Messages: Font 8x13' >> ${FVWM_USERDIR}/FvwmForm-Messages; \
               echo '*FvwmForm-Messages: WarpPointer' >> ${FVWM_USERDIR}/FvwmForm-Messages; \
               echo "*FvwmForm-Messages: Title   \\"$0\\"" >> ${FVWM_USERDIR}/FvwmForm-Messages `
-+ I Piperead `start=0; for i in $*; do \
++ I PipeRead `start=0; for i in $*; do \
               if [ "$start" -gt "0" ]; then \
                 echo '*FvwmForm-Messages: Line    left' >> ${FVWM_USERDIR}/FvwmForm-Messages; \
                 echo "*FvwmForm-Messages: Text  \\"$i\\"" >> ${FVWM_USERDIR}/FvwmForm-Messages; \
               fi; \
               start=$(($start+1)); \
               done `
-+ I Piperead `echo '*FvwmForm-Messages: Line   center' >> ${FVWM_USERDIR}/FvwmForm-Messages; \
++ I PipeRead `echo '*FvwmForm-Messages: Line   center' >> ${FVWM_USERDIR}/FvwmForm-Messages; \
               echo '*FvwmForm-Messages: Button  quit \" Ok \"' >> ${FVWM_USERDIR}/FvwmForm-Messages; \
               echo '*FvwmForm-Messages: Command !(rm -f ${FVWM_USERDIR}/FvwmForm-Messages)' >> ${FVWM_USERDIR}/FvwmForm-Messages `
 + I Schedule 100 Module FvwmForm FvwmForm-Messages
@@ -1646,7 +1650,7 @@ AddToFunc   FuncShowMessage
 #-----------------------------------------------------------------------
 DestroyFunc FuncFvwmShowColorsets
 AddToFunc   FuncFvwmShowColorsets
-+ I Piperead `echo 'DestroyModuleConfig  FvwmForm-ShowColorsets: *' > ${FVWM_USERDIR}/FvwmForm-ShowColorsets`
++ I PipeRead `echo 'DestroyModuleConfig  FvwmForm-ShowColorsets: *' > ${FVWM_USERDIR}/FvwmForm-ShowColorsets`
 + I FvwmPerl -e 'open(MSG ,">>$[FVWM_USERDIR]/FvwmForm-ShowColorsets") || die "Error $!"; \
                 print MSG "*FvwmForm-ShowColorsets: Font 8x13\\n"; \
                 print MSG "*FvwmForm-ShowColorsets: WarpPointer\\n"; \
@@ -1731,12 +1735,12 @@ AddToFunc   FuncDelWallpaperlink
 #-----------------------------------------------------------------------
 DestroyFunc FuncGetFvwmVersion
 AddToFunc   FuncGetFvwmVersion
-+ I Piperead 'fvwm -version > $[FVWM_USERDIR]/.version'
-+ I Piperead `sed -e 's/^\\\(.*\\\)$/"\\\1\\\"/' -i $[FVWM_USERDIR]/.version`
-+ I Piperead 'echo InfoStoreAdd version_str1 `head -n 1 $[FVWM_USERDIR]/.version`'
-+ I Piperead 'echo InfoStoreAdd version_str2 `grep with $[FVWM_USERDIR]/.version`'
++ I PipeRead 'fvwm -version > $[FVWM_USERDIR]/.version'
++ I PipeRead `sed -e 's/^\\\(.*\\\)$/"\\\1\\\"/' -i $[FVWM_USERDIR]/.version`
++ I PipeRead 'echo InfoStoreAdd version_str1 `head -n 1 $[FVWM_USERDIR]/.version`'
++ I PipeRead 'echo InfoStoreAdd version_str2 `grep with $[FVWM_USERDIR]/.version`'
 + I FuncShowMessage "Fvwm version Info" "$[infostore.version_str1]" "$[infostore.version_str2]"
-+ I Schedule 100 Piperead 'rm -f $[FVWM_USERDIR]/.version'
++ I Schedule 100 PipeRead 'rm -f $[FVWM_USERDIR]/.version'
 + I InfoStoreRemove version_str1
 + I InfoStoreRemove version_str2
 
@@ -1788,7 +1792,7 @@ AddToFunc   FuncGetFvwmVersion
 #-----------------------------------------------------------------------
 DestroyFunc FE-EnterWindow
 AddToFunc FE-EnterWindow
-+ I PointerWindow
++ I PointerWindow (FvwmGlobalIconMan, !root)
 + I TestRc (!Match) KeepRc All (FvwmGlobalIconMan, State 1) FuncWindowToBottom
 + I ThisWindow (!FvwmGlobalIconMan) All (FvwmGlobalIconMan, State 1) FuncWindowToBottom
 + I ThisWindow (FvwmGlobalIconMan, !State 1) FuncWindowOnTop
@@ -1801,7 +1805,7 @@ AddToFunc FuncWindowOnTop
 DestroyFunc FuncWindowToBottom
 AddToFunc FuncWindowToBottom
 + I ThisWindow (FvwmGlobalIconMan) All State 1 False
-+ I Pick (CirculateHit) Layer 0 2
++ I ThisWindow (FvwmGlobalIconMan) Pick (CirculateHit) Layer 0 2
 + I Break
 
 #-----------------------------------------------------------------------
@@ -2060,19 +2064,20 @@ AddToFunc FuncMenuRoot
 + I DestroyMenu MenuRoot
 + I AddToMenu MenuRoot DynamicPopupAction FuncMenuRoot
 + I AddToMenu MenuRoot "$[gt.Root Menu]" Title
-+ I Test (f  $[FVWM_USERDIR]/menu) \
-    AddToMenu MenuRoot "$[gt.&Applications]%menu/terminal.xpm%"            Popup FvwmMenu
-+ I TestRC (Match) Read $[FVWM_USERDIR]/menu
-+ I TestRC (NoMatch) \
-    AddToMenu MenuRoot "$[gt.&Generate Applications Menu]%menu/terminal.xpm%"  PipeRead 'fvwm-menu-desktop > $[FVWM_USERDIR]/menu &&  echo "Read $[FVWM_USERDIR]/menu"'
-+ I Test (f  $[FVWM_USERDIR]/menu) \
-    AddToMenu MenuRoot "$[gt.&Update Applications Menu]%menu/terminal.xpm%"  PipeRead 'fvwm-menu-desktop > $[FVWM_USERDIR]/menu &&  echo "Read $[FVWM_USERDIR]/menu"'
++ I Test (f  $[FVWM_USERDIR]/.menu) \
+    AddToMenu MenuRoot "$[gt.&Applications]%menu/terminal.xpm%"            	Popup FvwmMenu
++ I TestRC (Match) Read $[FVWM_USERDIR]/.menu
++ I TestRC (!Match) \
+    AddToMenu MenuRoot "$[gt.&Generate Applications Menu]%menu/terminal.xpm%"	PipeRead 'fvwm-menu-desktop > $[FVWM_USERDIR]/.menu &&  echo "Read $[FVWM_USERDIR]/.menu"'
++ I Test (f  $[FVWM_USERDIR]/.menu) \
+    AddToMenu MenuRoot "$[gt.&Update Applications Menu]%menu/terminal.xpm%"	PipeRead 'fvwm-menu-desktop > $[FVWM_USERDIR]/.menu &&  echo "Read $[FVWM_USERDIR]/.menu"'
++ I AddToMenu MenuRoot "$[gt.&Personal Applications]%menu/home.xpm%"		Popup MenuFvwmPersonal
 + I AddToMenu MenuRoot "" Nop
-+ I AddToMenu MenuRoot "$[gt.&Configuration]%menu/configuration.xpm%"     Popup MenuConfiguration
-+ I AddToMenu MenuRoot "$[gt.&Help]%menu/help.xpm%"                       Popup MenuHelp
++ I AddToMenu MenuRoot "$[gt.&Configuration]%menu/configuration.xpm%"		Popup MenuConfiguration
++ I AddToMenu MenuRoot "$[gt.&Help]%menu/help.xpm%"				Popup MenuHelp
 + I AddToMenu MenuRoot "" Nop
-+ I AddToMenu MenuRoot "$[gt.FVWM &Modules]%menu/modules.xpm%"            Popup MenuFvwmModules
-+ I AddToMenu MenuRoot "$[gt.&Window Operations]%menu/window.xpm%"        Popup MenuWindowOpsFull
++ I AddToMenu MenuRoot "$[gt.FVWM &Modules]%menu/modules.xpm%"			Popup MenuFvwmModules
++ I AddToMenu MenuRoot "$[gt.&Window Operations]%menu/window.xpm%"		Popup MenuWindowOpsFull
 + I AddToMenu MenuRoot "" Nop
 + I PipeRead 'if [ `pidof xscreensaver` ]; then \
                 echo SetEnv isRunning 1; \
@@ -2080,15 +2085,28 @@ AddToFunc FuncMenuRoot
                 echo SetEnv isRunning 0; \
               fi'
 + I Test (EnvMatch isRunning 1) \
-    AddToMenu MenuRoot "$[gt.&Lock screen]%menu/lock.xpm%"                Exec exec xscreensaver-command -lock
-+ I TestRc (NoMatch) \
-    AddToMenu MenuRoot "$[gt.Lock screen]	Shift-Ctrl+L%menu/lock.xpm%"                 FuncShowMessage \
+    AddToMenu MenuRoot "$[gt.&Lock screen]%menu/lock.xpm%"			Exec exec xscreensaver-command -lock
++ I TestRc (!Match) \
+    AddToMenu MenuRoot "$[gt.Lock screen]	Shift-Ctrl+L%menu/lock.xpm%"	FuncShowMessage \
                                                                                 "Lock screen Info" \
                                                                                 "'xscreensaver' not running or not installed."
-+ I AddToMenu MenuRoot "$[gt.&Run Command]	Shift-Alt-F2%menu/system.xpm%"      module FvwmForm FvwmForm-RunCommand
-+ I AddToMenu MenuRoot "$[gt.&Terminal]	Shift-Ctrl-T%menu/terminal.xpm%"    exec exec $[infostore.default_terminal]
-+ I AddToMenu MenuRoot "$[gt.&Quit FVWM]%menu/quit.xpm%"                  Popup MenuFvwmQuit
++ I AddToMenu MenuRoot "$[gt.&Run Command]	Shift-Alt-F2%menu/system.xpm%"	module FvwmForm FvwmForm-RunCommand
++ I AddToMenu MenuRoot "$[gt.&Terminal]	Shift-Ctrl-T%menu/terminal.xpm%"	exec exec $[infostore.default_terminal]
++ I AddToMenu MenuRoot "$[gt.&Quit FVWM]%menu/quit.xpm%"			Popup MenuFvwmQuit
 
+#-----------------------------------------------------------------------
+# Dynamic personal applications sub menu for favorite apps
+# realized with DynamicPopupAction
+#-----------------------------------------------------------------------
+AddToMenu MenuFvwmPersonal DynamicPopupAction FuncMenuFvwmPersonal
+
+DestroyFunc FuncMenuFvwmPersonal
+AddToFunc FuncMenuFvwmPersonal
++ I DestroyMenu MenuFvwmPersonal
++ I AddToMenu MenuFvwmPersonal DynamicPopupAction FuncMenuFvwmPersonal
++ I AddToMenu MenuFvwmPersonal "$[gt.&Personal Applications]" Title
++ I AddToMenu MenuFvwmPersonal "$[gt.Configure Personal Applications]%menu/configuration.xpm%"	FvwmScript FvwmScript-PersonalMenu
++ I Test (f  $[FVWM_USERDIR]/.personal) PipeRead `sed -e '/^# personal menu/ d;/^ *$/,$ d' $[FVWM_USERDIR]/.personal`
 
 #=======================================================================
 # 7.2 Help
@@ -2210,12 +2228,12 @@ AddToFunc FuncMenuFvwmConfiguration
 + I AddToMenu MenuFvwmConfiguration DynamicPopupAction FuncMenuFvwmConfiguration
 + I AddToMenu MenuFvwmConfiguration "$[gt.&Fvwm Configuration]" Title
 + I AddToMenu MenuFvwmConfiguration "$[gt.Control &Animation]%menu/window-iconify.xpm%"     Popup MenuFvwmAnimate
-+ I Test (x convert) Piperead `echo SetEnv appmatch 1`
-+ I TestRc (NoMatch) Piperead `echo SetEnv appmatch 0`
-+ I Test (x Esetroot) Piperead `echo SetEnv appmatch $(($appmatch+1))`
++ I Test (x convert) PipeRead `echo SetEnv appmatch 1`
++ I TestRc (!Match) PipeRead `echo SetEnv appmatch 0`
++ I Test (x Esetroot) PipeRead `echo SetEnv appmatch $(($appmatch+1))`
 + I Test (EnvMatch appmatch 2) \
     AddToMenu MenuFvwmConfiguration "$[gt.Configure &Background]%menu/image-viewer.xpm%"    Popup MenuWallpaperConfiguration
-+ I TestRc (NoMatch) \
++ I TestRc (!Match) \
     AddToMenu MenuFvwmConfiguration "$[gt.Configure Background]%menu/image-viewer.xpm%"     FuncShowMessage \
                                                                                             "Wallpaper browser Info" \
                                                                                             "Install ImageMagick AND eterm for full functionality."
@@ -2262,7 +2280,7 @@ AddToFunc FuncMenuXConfiguration
 + I AddToMenu MenuXConfiguration "$[gt.&Mouse]%menu/mouse.xpm%"               FvwmScript FvwmScript-PointerSetup
 + I Test (x xscreensaver-command) \
     AddToMenu MenuXConfiguration "$[gt.Sc&reen Saver]%menu/display.xpm%"      Popup MenuXScreenSaver
-+ I TestRc (NoMatch) \
++ I TestRc (!Match) \
     AddToMenu MenuXConfiguration "$[gt.Sc&reen Saver]%menu/display.xpm%"      FuncShowMessage \
                                                                                 "Screensaver Info" \
                                                                                 "Install xscreensaver for full functionality"                                                                                
@@ -2298,13 +2316,13 @@ AddToFunc   FuncMenuFvwmQuit
 + I AddToMenu MenuFvwmQuit "" Nop
 + I Test (x pm-is-supported) \
     AddToMenu MenuFvwmQuit "$[gt.&Suspend System]%menu/system.xpm%"       FuncSuspend
-+ I TestRc (NoMatch) \
++ I TestRc (!Match) \
     AddToMenu MenuFvwmQuit "$[gt.&Suspend System]%menu/system.xpm%"       FuncShowMessage \
                                                                                 "Suspend Info" \
                                                                                 "Install pm-utils for full functionality"                                                                                
 + I Test (x pm-is-supported) \
     AddToMenu MenuFvwmQuit "$[gt.&Hibernate System]%menu/system.xpm%"     FuncHibernate
-+ I TestRc (NoMatch) \
++ I TestRc (!Match) \
     AddToMenu MenuFvwmQuit "$[gt.&Hibernate System]%menu/system.xpm%"     FuncShowMessage \
                                                                                 "Suspend Info" \
                                                                                 "Install pm-utils for full functionality"                                                                                
@@ -2359,7 +2377,7 @@ AddToFunc   FuncMenuWindowOpsTrimmed
 + I AddToMenu MenuWindowOpsTrimmed "$[gt.Ma&ximize]	Shift-Alt+F10%menu/window-maximize.xpm%" Maximize
 + I ThisWindow (Layer 2) \
     AddToMenu MenuWindowOpsTrimmed "$[gt.Stays On &Top]%menu/window-raise.xpm%"             FuncStaysOnTopAndBack
-+ I TestRc (NoMatch) \
++ I TestRc (!Match) \
     AddToMenu MenuWindowOpsTrimmed "$[gt.Stays &Back]%menu/window-lower.xpm%"               FuncStaysOnTopAndBack
 + I AddToMenu MenuWindowOpsTrimmed "$[gt.(Un)&Stick]%menu/window-stick.xpm%"                Stick "toggle"
 + I AddToMenu MenuWindowOpsTrimmed "" Nop
@@ -2396,14 +2414,14 @@ AddToMenu   MenuWindowStyle
 + "%menu/window.xpm%TitleAt&Top"             WindowStyle TitleAtTop
 + "%menu/window.xpm%TitleAt&Bottom"          WindowStyle TitleAtBottom
 + "%menu/window.xpm%&Title"                  WindowStyle Title
-+ "%menu/window.xpm%&NoTitle"                WindowStyle NoTitle
++ "%menu/window.xpm%&NoTitle"                WindowStyle !Title
 + "" Nop
 + "%menu/window.xpm%&FvwmBorder"             WindowStyle FvwmBorder
 + "%menu/window.xpm%&MWMBorder"              WindowStyle MWMBorder
 + "%menu/window.xpm%&DepressableBorder"      WindowStyle DepressableBorder
 + "%menu/window.xpm%&FirmBorder"             WindowStyle FirmBorder
 + "%menu/window.xpm%&Handles"                WindowStyle Handles
-+ "%menu/window.xpm%N&oHandles"              WindowStyle NoHandles
++ "%menu/window.xpm%N&oHandles"              WindowStyle !Handles
 + "%menu/window.xpm%&BorderWidth 0"          WindowStyle BorderWidth 0
 + "%menu/window.xpm%BorderWidth &5"          WindowStyle BorderWidth 5
 + "%menu/window.xpm%Handle&Width 0"          WindowStyle HandleWidth 0

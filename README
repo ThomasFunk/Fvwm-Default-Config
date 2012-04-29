@@ -22,6 +22,10 @@ Featurelist of Fvwm Default Config:
 - Switching focus between windows with Alt-Tab
 - Splash screen
 - Print messages for needed apps for full config functionality in .xsessions-error
+- With a seperate FvwmScript 'FvwmScript-PersonalMenu' it is now 
+  possible to create personal menus. It can find in the script folder.
+  Should be copied into $FVWM_USERDIR or /usr/share/fvwm/
+  
 
 Default started systray apps, if stalonetray is installed:
 ----------------------------------------------------------
@@ -143,6 +147,7 @@ Button 1:   Drag moves icon, deiconify with double click, root menu with
 Button 2:   Deiconify icon with click, all of the same resource group with 
             CTRL + click
 Button 3:   WindowOpsTrimmed menu with click
+	    WindowGroupOps menu with CTRL + click
 
 Mouse on Root area:
 -------------------

@@ -1,0 +1,5 @@
+History:
+
+2012/04/29 V 1.0
+- FvwmScript to create personal menus. It reads the $FVWM_USERDIR/.menu 
+  created by fvwm-menu-desktop and saves the favorites in $FVWM_USERDIR/.personal

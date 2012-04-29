@@ -4,8 +4,6 @@ Todo:
   -> configure it to show the usage?
 - xinerama support
   -> nothing implemented yet
-- check key bindings in menus
-  -> nothing implemented yet
 - check sound effects
   -> for FvwmEvent
      Problem: no au files on e.g. Debian
