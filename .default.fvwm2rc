@@ -6,7 +6,7 @@
 #  ) ( .  \  /* \    //    \ .
 # (___)  * \/  . \/\/(_/\/\_)    2.6.4
 #
-# FVWM Default Configuration V 0.21.1
+# FVWM Default Configuration V 0.21.2
 # Copyright (C) 2012 fvwm.org
 #
 # Authors:
@@ -2064,6 +2064,7 @@ AddToFunc FuncMenuRoot
 + I DestroyMenu MenuRoot
 + I AddToMenu MenuRoot DynamicPopupAction FuncMenuRoot
 + I AddToMenu MenuRoot "$[gt.Root Menu]" Title
++ I AddToMenu MenuRoot "$[gt.&Personal Applications]%menu/home.xpm%"		Popup MenuFvwmPersonal
 + I Test (f  $[FVWM_USERDIR]/.menu) \
     AddToMenu MenuRoot "$[gt.&Applications]%menu/terminal.xpm%"            	Popup FvwmMenu
 + I TestRC (Match) Read $[FVWM_USERDIR]/.menu
@@ -2071,7 +2072,6 @@ AddToFunc FuncMenuRoot
     AddToMenu MenuRoot "$[gt.&Generate Applications Menu]%menu/terminal.xpm%"	PipeRead 'fvwm-menu-desktop > $[FVWM_USERDIR]/.menu &&  echo "Read $[FVWM_USERDIR]/.menu"'
 + I Test (f  $[FVWM_USERDIR]/.menu) \
     AddToMenu MenuRoot "$[gt.&Update Applications Menu]%menu/terminal.xpm%"	PipeRead 'fvwm-menu-desktop > $[FVWM_USERDIR]/.menu &&  echo "Read $[FVWM_USERDIR]/.menu"'
-+ I AddToMenu MenuRoot "$[gt.&Personal Applications]%menu/home.xpm%"		Popup MenuFvwmPersonal
 + I AddToMenu MenuRoot "" Nop
 + I AddToMenu MenuRoot "$[gt.&Configuration]%menu/configuration.xpm%"		Popup MenuConfiguration
 + I AddToMenu MenuRoot "$[gt.&Help]%menu/help.xpm%"				Popup MenuHelp

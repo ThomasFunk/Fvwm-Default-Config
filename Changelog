@@ -1,6 +1,9 @@
 History:
 
-04/29/2012 V 0.21
+04/29/2012 V 0.21.2
+- usuability fix: move "Personal Applications" to first position in Root menu
+
+04/29/2012 V 0.21.1
 - fix bug in StartFunction with xscreensaver: one exec to much
 
 04/29/2012 V 0.21
