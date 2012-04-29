@@ -1,7 +1,6 @@
 Welcome to Fvwm default config. This config intend to be simple and clean
 but with all a modern desktop should have.
 
-
 Featurelist of Fvwm Default Config:
 -----------------------------------
 - 4 virtual desktop pages
@@ -10,6 +9,8 @@ Featurelist of Fvwm Default Config:
 - date and time (if xclock is installed)
 - Lock desk & screensaver (if xscreensaver is installed)
 - Application menu via fvwm-menu-desktop
+- Personal menu via FvwmScript-PersonalMenu (It can find in the script 
+  folder. Should be copied into $FVWM_USERDIR or /usr/share/fvwm/ )
 - Background configurable with thumb browser (if imagemagick and eterm 
   is installed)
 - Animation control of window moves
@@ -22,9 +23,14 @@ Featurelist of Fvwm Default Config:
 - Switching focus between windows with Alt-Tab
 - Splash screen
 - Print messages for needed apps for full config functionality in .xsessions-error
-- With a seperate FvwmScript 'FvwmScript-PersonalMenu' it is now 
-  possible to create personal menus. It can find in the script folder.
-  Should be copied into $FVWM_USERDIR or /usr/share/fvwm/
+
+Requirements:
+-------------
+mandatory:	Fvwm >= 2.6.4
+recommended: 	FvwmScript-PersonalMenu, xterm, stalonetray, 
+		xscreensaver, eterm, imagemagick
+nice to have:	Volume Icon, fdpowermon, gnomes network manager,
+		bluetooth-applet, pm-utils
   
 
 Default started systray apps, if stalonetray is installed:
@@ -36,6 +42,8 @@ Default started systray apps, if stalonetray is installed:
 - nm-applet: gnomes network manager (http://projects.gnome.org/NetworkManager/)
 - bluetooth-applet: gnomes bluetooth applet 
   (http://library.gnome.org/users/gnome-bluetooth/stable/gnome-bluetooth-applet.html.en)
+
+Btw. it doesn't matter if they not installed. Will skip then ;-)
 
 
 Keybindings:
