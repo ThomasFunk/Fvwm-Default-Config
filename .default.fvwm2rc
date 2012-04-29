@@ -6,7 +6,7 @@
 #  ) ( .  \  /* \    //    \ .
 # (___)  * \/  . \/\/(_/\/\_)    2.6.4
 #
-# FVWM Default Configuration V 0.21
+# FVWM Default Configuration V 0.21.1
 # Copyright (C) 2012 fvwm.org
 #
 # Authors:
@@ -1453,7 +1453,7 @@ AddToFunc StartFunction
 + I Test (Init) FuncStartSystrayApplets
 # start xscreensaver daemon for locking
 + I Test (x xscreensaver-command) 
-+ I TestRC (Match) Test (Init) Exec Exec xscreensaver -no-splash
++ I TestRC (Match) Test (Init) Exec xscreensaver -no-splash
 
 #***********************************************************************
 # 6.1.3 Session

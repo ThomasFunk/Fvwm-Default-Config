@@ -1,6 +1,9 @@
 History:
 
-04/14/2012 V 0.21
+04/29/2012 V 0.21
+- fix bug in StartFunction with xscreensaver: one exec to much
+
+04/29/2012 V 0.21
 - remove Style Fvwm* EWMHMiniIconOverride, Icon fvwm.xpm, MiniIcon mini.f1.xpm
   because name matches first and not classes. On the other hand too few windows
   are fvwm windows so ...
