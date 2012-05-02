@@ -14,7 +14,7 @@
 # USA
 
 #-----------------------------------------------------------------------
-# Version 1.0, Copyright 2012, Thomas Funk
+# Version 1.0.1, Copyright 2012, Thomas Funk
 #-----------------------------------------------------------------------
 
 
@@ -45,7 +45,6 @@ Begin
 	
 	Set $cmd = $cmd1 $cmd3
 	Set $personal_app_list_strs = (GetOutput $cmd 1 -1)
-
 	If $personal_app_list <> {} Then
 	Begin
 	    ChangeTitle 9 $personal_app_list
@@ -82,20 +81,16 @@ Case message of
 	ChangeFont 10 {xft:Arial:pixelsize=12}
 	ChangeTitle 10 {}
 	Set $index = (GetValue 1)
-
 	Set $cmd = {exec echo '}$menu_list{' |cut -d'|' -f}$index{ |sed -e 's/\//-/g'}
 	Set $menu_entry = (GetOutput $cmd 1 -1)
 
 	Set $cmd1 = {sed -e '1,/}$menu_entry{/ d;/AddToMenu/ d;/^ *$/,$ d' $FVWM_USERDIR/.menu}
 	Set $cmd2 = { |cut -d'"' -f2 |tr '\n' '|' |sed 's/.$//'}
 	Set $cmd3 = { |tr '\n' '|' |sed 's/.$//'}
-
 	Set $cmd = $cmd1 $cmd2
 	Set $menu_app_list = (GetOutput $cmd 1 -1)
-
 	Set $cmd = $cmd1 $cmd3
 	Set $menu_app_list_strs = (GetOutput $cmd 1 -1)
-
 	ChangeTitle 3 $menu_app_list
     End
 End
@@ -159,7 +154,6 @@ Main
 	Set $close_click = 0
 	ChangeFont 10 {xft:Arial:pixelsize=12}
 	ChangeTitle 10 {}
-	
 	If $personal_app_list == {} Then
 	Begin
 	    Set $personal_app_list = $chosen_menu_app
@@ -170,7 +164,6 @@ Main
 	    Set $personal_app_list = $personal_app_list {|} $chosen_menu_app
 	    Set $personal_app_list_strs = $personal_app_list_strs{|}$chosen_menu_app_str
 	End
-
 	ChangeTitle 9 $personal_app_list
 	Set $personal_changed = 1
 
@@ -200,7 +193,6 @@ Main
 	Set $close_click = 0
 	ChangeFont 10 {xft:Arial:pixelsize=12}
 	ChangeTitle 10 {}
-
 	Set $cmd = {exec echo '}$chosen_personal_app_str{' |sed -e 's/\+/\[\\+\]/g;s/\"/\\\"/g;s/\//\\\//g'}
 	Set $chosen_personal_app_str = (GetOutput $cmd 1 -1)
 
@@ -208,7 +200,6 @@ Main
 	Begin
 	    Set $cmd = {exec echo '}$personal_app_list{' |grep -c "|"}
 	    Set $app_count = (GetOutput $cmd 1 -1)
-
 	    If $app_count == {0} Then
 	    Begin
 		Set $personal_app_list = {}
@@ -216,6 +207,9 @@ Main
 	    End
 	    Else
 	    Begin
+		Set $cmd = {exec echo '}$chosen_personal_app{' |sed -e 's/\+/\[\\+\]/g;s/\"/\\\"/g;s/\//\\\//g'}
+		Set $chosen_personal_app = (GetOutput $cmd 1 -1)
+
 		Set $cmd = {exec echo '}$personal_app_list{' | sed -e 's/}$chosen_personal_app{|//'}
 		Set $personal_app_list = (GetOutput $cmd 1 -1)
 
@@ -225,6 +219,9 @@ Main
 	End
 	Else
 	Begin
+	    Set $cmd = {exec echo '}$chosen_personal_app{' |sed -e 's/\+/\[\\+\]/g;s/\"/\\\"/g;s/\//\\\//g'}
+	    Set $chosen_personal_app = (GetOutput $cmd 1 -1)
+
 	    Set $cmd = {exec echo '}$personal_app_list{' | sed -e 's/|}$chosen_personal_app{//'}
 	    Set $personal_app_list = (GetOutput $cmd 1 -1)
 	    
@@ -261,14 +258,13 @@ Main
 	Set $close_click = 0
 	ChangeFont 10 {xft:Arial:pixelsize=12}
 	ChangeTitle 10 {}
-
 	Set $cmd = {exec echo '}$personal_app_list_strs{' |sed -e 's/\+/AddToMenu MenuFvwmPersonal/g;s/\"/\\\"/g;s/\//\\\//g;s/|/\\n/g'}
 	Set $save_str = (GetOutput $cmd 1 -1)
 
 	If $found_file == {1} Then
 	Begin
 	    # delete all app entries
-	    Do {exec sed -i '/^AddToMenu/d' $FVWM_USERDIR/.personal}
+	    Do {exec sed -i '/AddToMenu/d' $FVWM_USERDIR/.personal}
 	End
 	Else
 	Begin
@@ -277,7 +273,7 @@ Main
 	End
 
 	# add new app list
-	Set $cmd = {sed -i '/^# personal menu/ a\}$save_str{' $FVWM_USERDIR/.personal}
+	Set $cmd = {sed -i '/# personal menu/ a\}$save_str{' $FVWM_USERDIR/.personal}
 	Do {exec sleep 1}
 	Do {exec }$cmd
 	Set $personal_changed = 0
