@@ -14,7 +14,7 @@
 # USA
 
 #-----------------------------------------------------------------------
-# Version 1.0.1, Copyright 2012, Thomas Funk
+# Version 1.0.2, Copyright 2012, Thomas Funk
 #-----------------------------------------------------------------------
 
 
@@ -52,9 +52,44 @@ Begin
     End
     
     # get menu list
-    Set $cmd = {sed -e 's/^AddToMenu //p' -n $FVWM_USERDIR/.menu |sed -e 's/\"//g' |cut -d' ' -f1 |sort |sed -e 's/FvwmMenu-//g;s/-/\//g' |tr '\n' '|' |sed 's/.$//'}
+    Set $cmd = {sed -e 's/^AddToMenu //p' -n $FVWM_USERDIR/.menu |sed -e 's/\"//g' |cut -d' ' -f1 |sort |sed -e 's/FvwmMenu-//g;/^\s*$/d' |tr '\n' ' '}
+    Set $menus = (GetOutput $cmd 1 -1)
+    Set $index = 0
+    Set $notdone = 1
+    Set $new_menu = {}
+    While $notdone == 1 Do
+    Begin
+	Set $index = (Add $index 1)
+	Set $cmd = {echo }$menus
+	Set $menu_entry = (GetOutput $cmd 1 $index)
+	If $menu_entry <> {} Then
+	Begin
+	    # do only menus in list which have entries
+	    Set $cmd = {sed -e '/AddToMenu/ d;/Popup/ d;1,/}$menu_entry{\"/ d;/^ *$/,$ d' $FVWM_USERDIR/.menu |wc -l}
+	    Set $lines = (GetOutput $cmd 1 -1)
+	    If $lines <> {0} Then
+	    Begin
+		Set $new_menu = $new_menu $menu_entry {|}
+	    End
+	End
+	Else
+	Begin
+	    Set $notdone = 0
+	End
+    End
+    # change '-' to '/' and delete last '|'
+    Set $cmd = {echo '}$new_menu{' |sed -e 's/-/\//g;s/.$//'}
     Set $menu_list = (GetOutput $cmd 1 -1)
     ChangeTitle 1 $menu_list
+    
+    # initialize app list
+    Set $cmd = {echo }$menus
+    Set $menu_entry = (GetOutput $cmd 1 1)
+    Set $cmd1 = {sed -e '/AddToMenu/ d;/Popup/ d;1,/}$menu_entry{\"/ d;/^ *$/,$ d' $FVWM_USERDIR/.menu}
+    Set $cmd2 = { |cut -d'"' -f2 |tr '\n' '|' |sed 's/.$//'}
+    Set $cmd = $cmd1 $cmd2
+    Set $menu_app_list = (GetOutput $cmd 1 -1)
+    ChangeTitle 3 $menu_app_list	
 End
 
 
@@ -82,15 +117,21 @@ Case message of
 	ChangeTitle 10 {}
 	Set $index = (GetValue 1)
 	Set $cmd = {exec echo '}$menu_list{' |cut -d'|' -f}$index{ |sed -e 's/\//-/g'}
+	Do {echo menu_list cmd: }$cmd
 	Set $menu_entry = (GetOutput $cmd 1 -1)
+	Do {echo menu_entry: }$menu_entry
 
-	Set $cmd1 = {sed -e '1,/}$menu_entry{/ d;/AddToMenu/ d;/^ *$/,$ d' $FVWM_USERDIR/.menu}
+	Set $cmd1 = {sed -e '/AddToMenu/ d;/Popup/ d;1,/}$menu_entry{\"/ d;/^ *$/,$ d' $FVWM_USERDIR/.menu}
 	Set $cmd2 = { |cut -d'"' -f2 |tr '\n' '|' |sed 's/.$//'}
 	Set $cmd3 = { |tr '\n' '|' |sed 's/.$//'}
 	Set $cmd = $cmd1 $cmd2
+	Do {echo menu_app_list cmd: }$cmd
 	Set $menu_app_list = (GetOutput $cmd 1 -1)
+	Do {echo menu_app_list: }$menu_app_list
 	Set $cmd = $cmd1 $cmd3
+	Do {echo menu_app_list_strs cmd: }$cmd
 	Set $menu_app_list_strs = (GetOutput $cmd 1 -1)
+	Do {echo menu_app_list_strs: }$menu_app_list_strs
 	ChangeTitle 3 $menu_app_list
     End
 End
