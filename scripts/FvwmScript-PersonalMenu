@@ -14,7 +14,7 @@
 # USA
 
 #-----------------------------------------------------------------------
-# Version 1.0.3, Copyright 2012, Thomas Funk
+# Version 1.0.4, Copyright 2012, Thomas Funk
 #-----------------------------------------------------------------------
 
 
@@ -88,9 +88,15 @@ Begin
     # initialize app list
     Set $cmd1 = {sed -e '/AddToMenu/ d;/Popup/ d;1,/}$menu_entry{\"/ d;/^ *$/,$ d' $FVWM_USERDIR/.menu}
     Set $cmd2 = { |cut -d'"' -f2 |tr '\n' '|' |sed 's/.$//'}
+    Set $cmd3 = { |tr '\n' '|' |sed 's/.$//'}
+
     Set $cmd = $cmd1 $cmd2
     Set $menu_app_list = (GetOutput $cmd 1 -1)
-    ChangeTitle 3 $menu_app_list	
+
+    Set $cmd = $cmd1 $cmd3
+    Set $menu_app_list_strs = (GetOutput $cmd 1 -1)
+
+    ChangeTitle 3 $menu_app_list
 End
 
 
@@ -170,9 +176,12 @@ Case message of
 	
 	Set $cmd = {exec echo '}$menu_app_list{' |cut -d'|' -f}$index
 	Set $chosen_menu_app = (GetOutput $cmd 1 -1)
+	Do {echo chosen_menu_app: }$chosen_menu_app
 	
 	Set $cmd = {exec echo '}$menu_app_list_strs{' |cut -d'|' -f}$index
+	Do {echo chosen_menu_app_str cmd: }$cmd
 	Set $chosen_menu_app_str = (GetOutput $cmd 1 -1)
+	Do {echo chosen_menu_app_str: }$chosen_menu_app_str
     End
 End
 
