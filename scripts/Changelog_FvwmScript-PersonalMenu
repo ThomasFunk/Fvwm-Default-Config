@@ -1,5 +1,8 @@
 History:
 
+2012/05/14 V 1.0.3
+- Fix bug again that app list is empty at start
+
 2012/05/14 V 1.0.2
 - Fix bug that Popup menus listed in the app list
 - Fix bug that empty menus listed in the menu list

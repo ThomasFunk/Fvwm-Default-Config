@@ -14,7 +14,7 @@
 # USA
 
 #-----------------------------------------------------------------------
-# Version 1.0.2, Copyright 2012, Thomas Funk
+# Version 1.0.3, Copyright 2012, Thomas Funk
 #-----------------------------------------------------------------------
 
 
@@ -53,14 +53,14 @@ Begin
     
     # get menu list
     Set $cmd = {sed -e 's/^AddToMenu //p' -n $FVWM_USERDIR/.menu |sed -e 's/\"//g' |cut -d' ' -f1 |sort |sed -e 's/FvwmMenu-//g;/^\s*$/d' |tr '\n' ' '}
-    Set $menus = (GetOutput $cmd 1 -1)
+    Set $menu_list = (GetOutput $cmd 1 -1)
     Set $index = 0
     Set $notdone = 1
     Set $new_menu = {}
     While $notdone == 1 Do
     Begin
 	Set $index = (Add $index 1)
-	Set $cmd = {echo }$menus
+	Set $cmd = {echo }$menu_list
 	Set $menu_entry = (GetOutput $cmd 1 $index)
 	If $menu_entry <> {} Then
 	Begin
@@ -69,7 +69,7 @@ Begin
 	    Set $lines = (GetOutput $cmd 1 -1)
 	    If $lines <> {0} Then
 	    Begin
-		Set $new_menu = $new_menu $menu_entry {|}
+		Set $new_menu = $new_menu $menu_entry { }
 	    End
 	End
 	Else
@@ -77,14 +77,15 @@ Begin
 	    Set $notdone = 0
 	End
     End
-    # change '-' to '/' and delete last '|'
-    Set $cmd = {echo '}$new_menu{' |sed -e 's/-/\//g;s/.$//'}
+    # get 1st menu entry
+    Set $cmd = {echo }$new_menu
+    Set $menu_entry = (GetOutput $cmd 1 1)
+    # change '-' to '/', ' ' to '|' and delete last '|'
+    Set $cmd = {echo '}$new_menu{' |sed -e 's/ /|/g;s/-/\//g;s/.$//'}
     Set $menu_list = (GetOutput $cmd 1 -1)
     ChangeTitle 1 $menu_list
     
     # initialize app list
-    Set $cmd = {echo }$menus
-    Set $menu_entry = (GetOutput $cmd 1 1)
     Set $cmd1 = {sed -e '/AddToMenu/ d;/Popup/ d;1,/}$menu_entry{\"/ d;/^ *$/,$ d' $FVWM_USERDIR/.menu}
     Set $cmd2 = { |cut -d'"' -f2 |tr '\n' '|' |sed 's/.$//'}
     Set $cmd = $cmd1 $cmd2
