@@ -26,9 +26,9 @@ Featurelist of Fvwm Default Config:
 
 Requirements:
 -------------
-mandatory:	Fvwm >= 2.6.4
+mandatory:	Fvwm >= 2.6.4 (should compiled with libxpm)
 recommended: 	FvwmScript-PersonalMenu, xterm, stalonetray, 
-		xscreensaver, eterm, imagemagick
+		xscreensaver, eterm, imagemagick, wm-icons
 nice to have:	Volume Icon, fdpowermon, gnomes network manager,
 		bluetooth-applet, pm-utils
   

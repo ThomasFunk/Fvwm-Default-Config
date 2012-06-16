@@ -1,5 +1,16 @@
 History:
 
+06/17/2012 V 0.21.3
+- fix bug with too much + signs in ImagePath
+- comment out 'BugOpts QtDragnDropWorkaround True'. Shall be uncommented
+  if needed.
+- comment out 'Style * MWMFunctions' because setting this globally will 
+  break Java programs by respecting MwmLayer.
+- delete DefaultFont because FVWM hard-codes 6x13 as its default fallback font.
+  so it's useless
+- add some new comments for better clarification
+- 
+
 04/29/2012 V 0.21.2
 - usuability fix: move "Personal Applications" to first position in Root menu
 
