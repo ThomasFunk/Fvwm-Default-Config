@@ -1,10 +1,14 @@
 History:
 
+06/17/2012 V 0.21.5
+- add to help menu 'How Styles are Applied'
+- move the rest of specific styles (modules) to APPLICATIONS LOOK/FEEL
+- split all style options in single lines
+
 06/17/2012 V 0.21.4
 - create a decor 'Default'
 - resort styles into GLOBAL LOOK/FEEL and APPLICATIONS LOOK/FEEL
   -> Always generalise, before specialise.
-
 
 06/17/2012 V 0.21.3
 - fix bug with too much + signs in ImagePath
