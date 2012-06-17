@@ -6,7 +6,7 @@
 #  ) ( .  \  /* \    //    \ .
 # (___)  * \/  . \/\/(_/\/\_)    2.6.4
 #
-# FVWM Default Configuration V 0.21.3
+# FVWM Default Configuration V 0.21.4
 # Copyright (C) 2012 fvwm.org
 #
 # Authors:
@@ -76,57 +76,64 @@
 #         2.4.2 Titlebar
 #         2.4.3 Border
 #         2.4.4 Buttons
-#         2.4.5 Icons
 #     2.5 Menus
 #         2.5.1 Root menu
-#         2.5.2 WinOps menu
 # 3.  GLOBAL FEEL
 #     3.1 General
 #     3.2 Windows
-#     3.3 Applications
-# 4.  BINDINGS
-#     4.1 Mouse
-#       4.1.1. Pointer in Root or anywhere
-#       4.1.2. Pointer in Window Buttons
-#       4.1.3. Pointer in Window Decorations
-#       4.1.4. Pointer in Icons
-#       4.1.5. Pointer in Window (and in Icon for consistency)
-#     4.2 Keyboard
-#       4.2.1 ALT + Key
-#       4.2.2 ALT-SHIFT + Key
-#       4.2.3 ALT-CTRL-SHIFT
-#       4.2.4 CTRL + Key
-#       4.2.5 CTRL-ALT + Key
-#       4.2.6 SHIFT-CTRL + Key
-#     4.3 Strokes
-# 5.  MODULES
-#     5.1 FvwmAnimate
-#     5.2 FvwmBacker
-#     5.3 FvwmBanner
-#     5.4 FvwmEvent
-#	  5.4.1 Common FvwmEvents
-#	  5.4.2 Sound FvwmEvents
-#     5.5 FvwmForm
-#         5.5.1 RunCommand
-#     5.6 FvwmIdent
-#     5.7 FvwmIconMan
-#         5.7.1 Global FvwmIconMan ("Taskbar")
-#     5.8 FvwmPager
-#     5.9 FvwmProxy
-# 6.  FUNCTIONS
-#     6.1 Startup
-#     6.2 General
-#     6.3 Window/Icon
-#     6.4 Menus
-# 7.  MENUS
-#     7.1 Root menu
-#     7.2 Help menu
-#     7.3 Modules menu
-#     7.4 Configuration menu
-#     7.5 Fvwm Quit menu
-#     7.6 Window Ops menus
+# 4.  APPLCATIONS LOOK
+#     4.1 Windows Decorations
+#         4.1.1 General
+#         4.1.2 Icons
+#     4.2 Menus
+#         4.2.1 WinOps menu
+# 5.  APPLICATIONS FEEL
+#     5.1 General
+#     5.2 Applications
+# 6.  MODULES
+#     6.1 FvwmAnimate
+#     6.2 FvwmBacker
+#     6.3 FvwmBanner
+#     6.4 FvwmEvent
+#	  6.4.1 Common FvwmEvents
+#	  6.4.2 Sound FvwmEvents
+#     6.5 FvwmForm
+#         6.5.1 RunCommand
+#     6.6 FvwmIdent
+#     6.7 FvwmIconMan
+#         6.7.1 Global FvwmIconMan ("Taskbar")
+#     6.8 FvwmPager
+#     6.9 FvwmProxy
+# 7.  BINDINGS
+#     7.1 Mouse
+#       7.1.1. Pointer in Root or anywhere
+#       7.1.2. Pointer in Window Buttons
+#       7.1.3. Pointer in Window Decorations
+#       7.1.4. Pointer in Icons
+#       7.1.5. Pointer in Window (and in Icon for consistency)
+#     7.2 Keyboard
+#       7.2.1 ALT + Key
+#       7.2.2 ALT-SHIFT + Key
+#       7.2.3 ALT-CTRL-SHIFT
+#       7.2.4 CTRL + Key
+#       7.2.5 CTRL-ALT + Key
+#       7.2.6 SHIFT-CTRL + Key
+#     7.3 Strokes
+# 8.  FUNCTIONS
+#     8.1 Startup
+#     8.2 General
+#     8.3 Window/Icon
+#     8.4 Menus
+# 9.  MENUS
+#     9.1 Root menu
+#     9.2 Help menu
+#     9.3 Modules menu
+#     9.4 Configuration menu
+#     9.5 Fvwm Quit menu
+#     9.6 Window Ops menus
 #
 ########################################################################
+
 
 
 ########################################################################
@@ -157,6 +164,7 @@
 ImagePath /usr/share/icons:/usr/share/icons/wm-icons:+
 ImagePath +:/usr/share/pixmaps:/usr/share/pixmaps/fvwm
 
+
 #=======================================================================
 # 1.2 Variables (InfoStore)
 #=======================================================================
@@ -175,7 +183,6 @@ InfoStoreAdd fvwm_wallpaper $[FVWM_USERDIR]/.wallpaper
 
 # actual pager height. Needed for the "top bar" modules
 PipeRead 'echo InfoStoreAdd fvwm_pager_height $(($[vp.height]/25))'
-
 
 #***********************************************************************
 # 1.2.2 Default environment settings
@@ -215,6 +222,7 @@ BugOpts FlickeringMoveWorkaround True
 # ClientEvent messages. If needed uncomment it.
 #-----------------------------------------------------------------------
 #BugOpts QtDragnDropWorkaround True
+
 
 
 ########################################################################
@@ -262,6 +270,7 @@ CursorStyle STROKE		plus			black	white
 Style * Font "xft:$[infostore.used_font]:pixelsize=$[infostore.fontsize]"
 
 Style * IconFont "xft:monospace:pixelsize=$[infostore.fontsize]:Medium"
+
 
 #=======================================================================
 # 2.3 Colorsets (based on Fvwm-Themes)
@@ -461,24 +470,24 @@ Style * HilightIconTitleColorset 11
 # the icon title
 Style * IconTitleRelief 1
 
-Style Fvwm* Colorset 0
 
+DestroyDecor Default
+AddToDecor Default
 #***********************************************************************
 # 2.4.2 Titlebar
 #***********************************************************************
-TitleStyle AllActive	Colorset 2 -- Flat
-TitleStyle AllInactive 	Colorset 3 -- Flat
-TitleStyle LeftJustified
++ TitleStyle AllActive		Colorset 2 -- Flat
++ TitleStyle AllInactive 	Colorset 3 -- Flat
++ TitleStyle LeftJustified
 
 #***********************************************************************
 # 2.4.3 Border
 #***********************************************************************
-BorderStyle -- HiddenHandles NoInset
++ BorderStyle -- HiddenHandles NoInset
 
 #***********************************************************************
 # 2.4.4 Buttons
 #***********************************************************************
-ButtonStyle all	-- UseTitleStyle
 
 # +----------------------------------------------------------+
 # | X  X  X                                          X  X  X |
@@ -498,40 +507,17 @@ ButtonStyle all	-- UseTitleStyle
 #   @4 Invisible (just move the pointer, dont draw anything)
 #
 
-AddButtonStyle 1 Vector 4 50x65@0 35x35@0 65x35@0 50x65@1
-AddButtonStyle 2 Vector 17 20x20@0 30x20@0 50x40@0 70x20@0 80x20@0 80x30@1 60x50@1 80x70@0 80x80@1 70x80@1 50x60@1 30x80@1 20x80@1 20x70@1 40x50@0 20x30@1 20x20@0
-AddButtonStyle 4 Vector 13 60x20@1 60x40@1 80x40@0 80x60@1 60x60@1 60x80@1 40x80@1 40x60@0 20x60@1 20x40@0 40x40@0 40x20@0 60x20@0
-AddButtonStyle 6 Vector 5 25x40@0 25x60@0 75x60@1 75x40@1 25x40@0
++ ButtonStyle 1 Vector 4 50x65@0 35x35@0 65x35@0 50x65@1
++ ButtonStyle 2 Vector 17 20x20@0 30x20@0 50x40@0 70x20@0 80x20@0 80x30@1 60x50@1 80x70@0 80x80@1 70x80@1 50x60@1 30x80@1 20x80@1 20x70@1 40x50@0 20x30@1 20x20@0
++ ButtonStyle 4 Vector 13 60x20@1 60x40@1 80x40@0 80x60@1 60x60@1 60x80@1 40x80@1 40x60@0 20x60@1 20x40@0 40x40@0 40x20@0 60x20@0
++ ButtonStyle 6 Vector 5 25x40@0 25x60@0 75x60@1 75x40@1 25x40@0
 
-ButtonStyle All ActiveUp (-- flat) Inactive (-- flat)
-ButtonStyle 1 - Clear MWMDecorMenu
-ButtonStyle 2 - Clear
-ButtonStyle 4 - Clear MWMDecorMax
-ButtonStyle 6 - Clear MWMDecorMin
-
-#***********************************************************************
-# 2.4.5 Icons
-#***********************************************************************
-# If a window has no icon associated, then the below will use.
-# Remark: UseStyle is deprecated and will be removed in the future.
-#         There are plans to replace it with a more flexible solution
-#         in fvwm-3.0.
-Style Untitled    EWMHMiniIconOverride, Icon unknown1.xpm, MiniIcon mini.x.xpm
-Style NoClass     UseStyle Untitled
-Style NoResource  UseStyle Untitled
-Style X*          UseStyle Untitled
-Style error       EWMHMiniIconOverride, Icon bomb.xpm, MiniIcon mini.bomb.xpm
-Style FvwmIdent   EWMHMiniIconOverride, Icon question.xpm, MiniIcon mini.question.xpm
-
-#***********************************************************************
-# 2.4.6 Applications
-#***********************************************************************
-# If any application needs a specific style put it here
-# xclock
-Style XClock  !Title, Sticky, WindowListSkip, StaysOnBottom, HandleWidth 2
-
-# stalonetray
-Style stalonetray !Title, Sticky, WindowListSkip, StaysOnBottom, HandleWidth 2
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All ActiveUp (-- Flat) Inactive (-- Flat)
++ ButtonStyle 1 - Clear MWMDecorMenu
++ ButtonStyle 2 - Clear
++ ButtonStyle 4 - Clear MWMDecorMax
++ ButtonStyle 6 - Clear MWMDecorMin
 
 
 #=======================================================================
@@ -555,13 +541,6 @@ MenuStyle * PopupDelay 300, PopdownImmediately, PopupOffset 0 100
 MenuStyle * ItemFormat "%s%|%5.i%5.5l%5.5r%.5>%|"
 MenuStyle * VerticalItemSpacing 2 3, VerticalTitleSpacing 1 2
 
-#***********************************************************************
-# 2.5.2 WinOps menu
-#***********************************************************************
-CopyMenuStyle * winops
-
-MenuStyle winops TitleWarpOff
-MenuStyle winops VerticalItemSpacing 1 2, VerticalTitleSpacing 1 2
 
 
 ########################################################################
@@ -635,14 +614,6 @@ Style * IconBox 20 80 -100 -20, \
         StaysOnBottom
 
 #-----------------------------------------------------------------------
-# makes fvwm attempt to recognize and respect the mwm prohibited
-# operations hints that applications occasionally use. But should only
-# used for applications with problems because setting this globally will
-# break Java programs by respecting MwmLayer.
-#-----------------------------------------------------------------------
-#Style <app> MWMFunctions
-
-#-----------------------------------------------------------------------
 # makes fvwm attempt to recognize and respect the mwm decoration hints
 # that applications occasionally use
 #-----------------------------------------------------------------------
@@ -676,6 +647,7 @@ ClickTime 300
 # Use EWMH hints and respect EWMH hints which change the window layer.
 #-----------------------------------------------------------------------
 Style * EWMHUseStackingOrderHints
+
 
 #=======================================================================
 # 3.2 Windows
@@ -745,8 +717,85 @@ Style * DecorateTransient
 #Style * DontRaiseTransient
 
 
+
+########################################################################
+#                4. A P P L I C A T I O N S  L O O K
+########################################################################
+# If needed put in here all application specific styles. For information
+# see style comments in GLOBAL LOOK
+
 #=======================================================================
-# 3.3 Applications
+# 4.1 Windows Decorations
+#=======================================================================
+
+#***********************************************************************
+# 4.1.1 Applications
+#***********************************************************************
+# If any application needs a specific window related style put it here
+
+#-----------------------------------------------------------------------
+# All Fvwm* named windows
+#-----------------------------------------------------------------------
+Style Fvwm* Colorset 0
+
+#-----------------------------------------------------------------------
+# xclock
+#-----------------------------------------------------------------------
+Style XClock  !Title, Sticky, WindowListSkip, StaysOnBottom, HandleWidth 2
+
+#-----------------------------------------------------------------------
+# stalonetray
+#-----------------------------------------------------------------------
+Style stalonetray !Title, Sticky, WindowListSkip, StaysOnBottom, HandleWidth 2
+
+#***********************************************************************
+# 4.1.2 Icons
+#***********************************************************************
+# If a window has no icon associated, then the below will use.
+# Remark: UseStyle is deprecated and will be removed in the future.
+#         There are plans to replace it with a more flexible solution
+#         in fvwm-3.0.
+Style Untitled    EWMHMiniIconOverride, Icon unknown1.xpm, MiniIcon mini.x.xpm
+Style NoClass     UseStyle Untitled
+Style NoResource  UseStyle Untitled
+Style X*          UseStyle Untitled
+Style error       EWMHMiniIconOverride, Icon bomb.xpm, MiniIcon mini.bomb.xpm
+Style FvwmIdent   EWMHMiniIconOverride, Icon question.xpm, MiniIcon mini.question.xpm
+
+
+#=======================================================================
+# 4.2 Menus
+#=======================================================================
+
+#***********************************************************************
+# 4.2.1 WinOps menu
+#***********************************************************************
+CopyMenuStyle * winops
+
+MenuStyle winops TitleWarpOff
+MenuStyle winops VerticalItemSpacing 1 2, VerticalTitleSpacing 1 2
+
+
+
+########################################################################
+#                4. A P P L I C A T I O N S  F E E L
+########################################################################
+
+#=======================================================================
+# 5.1 General
+#=======================================================================
+
+#-----------------------------------------------------------------------
+# makes fvwm attempt to recognize and respect the mwm prohibited
+# operations hints that applications occasionally use. But should only
+# used for applications with problems because setting this globally will
+# break Java programs by respecting MwmLayer.
+#-----------------------------------------------------------------------
+#Style <app> MWMFunctions
+
+
+#=======================================================================
+# 5.2 Applications
 #=======================================================================
 
 #-----------------------------------------------------------------------
@@ -757,11 +806,197 @@ Style stalonetray EWMHUseStackingOrderHints
 
 
 ########################################################################
-#                       4. B I N D I N G S 
+#                         5. M O D U L E S 
+########################################################################
+# Definitions used by Fvwm modules.
+# (Alphabetic order is used, but the Form are at the end)
+
+#=======================================================================
+# 5.1 FvwmAnimate
+#=======================================================================
+DestroyModuleConfig FvwmAnimate: *
+
+*FvwmAnimate: Color #6e6e6e
+*FvwmAnimate: Effect twist
+*FvwmAnimate: Delay 3
+*FvwmAnimate: Iterations 50
+*FvwmAnimate: Width 5
+
+
+#=======================================================================
+# 5.2 FvwmBacker
+#=======================================================================
+*FvwmBacker: Command(Desk 0, Page * *) Colorset 24
+
+
+#=======================================================================
+# 5.3 FvwmBanner
+#=======================================================================
+Style FvwmBanner !Title, Sticky, StaysOnTop, WindowListSkip, CirculateSkip
+
+*FvwmBanner: NoDecor
+Test (I banner.fvwm_cat_thing.xpm) *FvwmBanner: Pixmap banner.fvwm_cat_thing.xpm
+*FvwmBanner: Timeout 3
+
+
+#=======================================================================
+# 5.4 FvwmEvent
+#=======================================================================
+
+#***********************************************************************
+# 5.4.1 Common FvwmEvents
+#***********************************************************************
+DestroyModuleConfig FvwmEventCommon: *
+*FvwmEventCommon: enter_window      FE-EnterWindow
+
+#***********************************************************************
+# 5.4.1 Sound FvwmEvents
+#***********************************************************************
+DestroyModuleConfig FvwmEventSound: *
+
+# replace rplay by a sound player that can play .au sound file
+#*FvwmEvent: Cmd "Exec exec rplay "
+
+*FvwmEventSound: StartDelay 3
+*FvwmEventSound: Delay 1
+
+#*FvwmEventSound: startup          "/usr/share/sounds/gong.au"
+#*FvwmEventSound: add_window       "/usr/share/sounds/wipe.au"
+#*FvwmEventSound: destroy_window   "/usr/share/sounds/pook.au"
+#*FvwmEventSound: iconify          "/usr/share/sounds/clong.au"
+#*FvwmEventSound: deiconify        "/usr/share/sounds/clong.au"
+#*FvwmEventSound: windowshade      "/usr/share/sounds/slide.au"
+#*FvwmEventSound: dewindowshade    "/usr/share/sounds/slide.au"
+#*FvwmEventSound: new_page         "/usr/share/sounds/slide.au"
+
+
+#=======================================================================
+# 5.5 FvwmForm
+#=======================================================================
+
+#***********************************************************************
+# 5.5.1 RunCommand Window
+#***********************************************************************
+DestroyModuleConfig  FvwmForm-RunCommand: *
+*FvwmForm-RunCommand: WarpPointer
+*FvwmForm-RunCommand: Title         "$[gt.Run Command]"
+*FvwmForm-RunCommand: Line          center
+*FvwmForm-RunCommand: Text          "$[gt.Run Command]"
+*FvwmForm-RunCommand: Line          left
+*FvwmForm-RunCommand: Text          "$[gt.Command:]"
+*FvwmForm-RunCommand: Input         Command 30 ""
+*FvwmForm-RunCommand: Line          center
+*FvwmForm-RunCommand: Selection     cmd multiple
+*FvwmForm-RunCommand: Choice        TERM    TERM     off      "$[gt.Run in Terminal]"
+*FvwmForm-RunCommand: Line          expand
+*FvwmForm-RunCommand: Button        quit "$[gt.Execute]"
+*FvwmForm-RunCommand: Command       $(TERM?exec xterm -hold -T "$(Command)" -n "$(Command)" -e $(Command))
+*FvwmForm-RunCommand: Command       exec $(Command)
+*FvwmForm-RunCommand: Button        quit "$[gt.Cancel]"
+*FvwmForm-RunCommand: Command       Nop
+
+
+#=======================================================================
+# 5.6 FvwmIdent
+#=======================================================================
+#  A xwininfo replacement
+DestroyModuleConfig FvwmIdent: *
+*FvwmIdent: Colorset  21
+*FvwmIdent: Font      "xft:$[infostore.used_font]:pixelsize=$[infostore.fontsize]"
+
+
+#=======================================================================
+# 5.7 FvwmIconMan
+#=======================================================================
+
+#***********************************************************************
+# 5.7.1 Global FvwmIconMan ("Taskbar")
+#***********************************************************************
+#Style FvwmGlobalIconMan !Title, Sticky, WindowListSkip, StaysOnBottom, HandleWidth 1, !State 1
+Style FvwmGlobalIconMan TitleAtRight, !Button 1, !Button 2, !Button 4, !Button 6, Sticky, WindowListSkip, StaysOnBottom, HandleWidth 1, !State 1
+
+DestroyModuleConfig FvwmGlobalIconMan: *
+*FvwmGlobalIconMan: 1 IconName                GlobalIconMan
+*FvwmGlobalIconMan: 1 Title                   "Global IconMan"
+PipeRead 'echo *FvwmGlobalIconMan: 1 ButtonGeometry   $(($[vp.width]/3))x0'
+PipeRead 'echo *FvwmGlobalIconMan: 1 ManagerGeometry  1x0+$(($[infostore.fontsize]/2))+0'
+
+*FvwmGlobalIconMan: 1 Colorset		      10
+*FvwmGlobalIconMan: 1 IconColorset	      12
+*FvwmGlobalIconMan: 1 PlainColorset	      10
+*FvwmGlobalIconMan: 1 SelectColorset	      11
+*FvwmGlobalIconMan: 1 FocusColorset	      11
+*FvwmGlobalIconMan: 1 FocusAndSelectColorset  11
+
+*FvwmGlobalIconMan: 1 FollowFocus             true
+*FvwmGlobalIconMan: 1 IconButton	      down
+*FvwmGlobalIconMan: 1 PlainButton	      up
+*FvwmGlobalIconMan: 1 SelectButton	      down
+*FvwmGlobalIconMan: 1 FocusButton	      up
+*FvwmGlobalIconMan: 1 FocusAndSelectButton    down
+
+*FvwmGlobalIconMan: 1 ReliefThickness         1
+*FvwmGlobalIconMan: 1 Resolution              page
+*FvwmGlobalIconMan: 1 UseWinList              true
+
+*FvwmGlobalIconMan: 1 DrawIcons               always
+*FvwmGlobalIconMan: 1 Sort                    name
+*FvwmGlobalIconMan: 1 Format                  "%c: %t"
+*FvwmGlobalIconMan: 1 Font                    "xft:$[infostore.used_font]:pixelsize=$[infostore.fontsize]"
+	
+*FvwmGlobalIconMan: 1 NoIconAction			"SendToModule FvwmAnimate animate"
+*FvwmGlobalIconMan: 1 Action  Mouse	1	A	sendcommand "FuncSelectWindow"
+*FvwmGlobalIconMan: 1 Action  Mouse	2	A	sendcommand "Iconify"
+*FvwmGlobalIconMan: 1 Action  Mouse	3	A	sendcommand "Popup MenuWindowOpsTrimmed Mouse c -102m"
+*FvwmGlobalIconMan: 1 Action  select			sendcommand "Focus"
+
+*FvwmGlobalIconMan: 1 Action  Key     	Up    	N 	gotobutton Up, select
+*FvwmGlobalIconMan: 1 Action  Key     	Down  	N 	gotobutton Down, select
+
+
+#=======================================================================
+# 5.8 FvwmPager
+#=======================================================================
+Style FvwmPager !Title, Sticky, WindowListSkip, StaysOnTop, FixedSize, FixedPosition, HandleWidth 1
+#Style FvwmPager NoTitle, !Handles, Borders, Sticky, StaysOnTop, Iconifiable, PositionPlacement center
+
+DestroyModuleConfig FvwmPager: *
+PipeRead 'echo *FvwmPager: Geometry $(($[vp.width]/5))x$[infostore.fvwm_pager_height]+$(($[vp.width]/2-($[vp.width]/5)/2))+0'
+*FvwmPager: Colorset            *  10
+*FvwmPager: HilightColorset     *  11
+*FvwmPager: BalloonColorset     *  16
+*FvwmPager: WindowColorsets     14 15
+*FvwmPager: Balloons            All
+*FvwmPager: SmallFont           none
+*FvwmPager: Font                none
+*FvwmPager: BalloonFont         "xft:$[infostore.used_font]:pixelsize=$[infostore.fontsize]"
+*FvwmPager: BallonYOffset       +2
+*FvwmPager: WindowBorderWidth   1
+*FvwmPager: WindowLabelFormat   ""
+*FvwmPager: MiniIcons
+*FvwmPager: UseSkipList
+*FvwmPager: Rows                1
+*FvwmPager: SolidSeparators
+
+
+#=======================================================================
+# 5.9 FvwmProxy
+#=======================================================================
+# Hit ALT+Esc to toggle FvwmProxy, which allows you to see all windows on your
+# desktop, even if they've been obscured... really cool!
+DestroyModuleConfig FvwmProxy: *
+*FvwmProxy: Colorset 13
+#*FvwmProxy: Font "Shadow=0 1 SE:xft:$[infostore.used_font]:pixelsize=11"
+*FvwmProxy: ProxyMove false
+
+
+
+########################################################################
+#                       6. B I N D I N G S 
 ########################################################################
      
 #=======================================================================
-# 4.1 Mouse
+# 6.1 Mouse
 #=======================================================================
 # Handle some Mouse bindings now...
 # Recall that mouse formats look like this:
@@ -794,7 +1029,7 @@ Style stalonetray EWMHUseStackingOrderHints
 #
 
 #***********************************************************************
-# 4.1.1. Pointer in Root or anywhere
+# 6.1.1. Pointer in Root or anywhere
 #***********************************************************************
 #     Button	Context Modifi 	Function
 Mouse 1		R	A       Menu MenuRoot
@@ -824,7 +1059,7 @@ Mouse 0		W       SCM     FuncShowMessage  "Mouse Bindings for Root area" \
 "           SHIFT-CTRL + rolling wheel up/down anywhere" \
 
 #***********************************************************************
-# 4.1.2. Pointer in Window Buttons
+# 6.1.2. Pointer in Window Buttons
 #***********************************************************************
 #     Button	Context	Modifi 	Function
 
@@ -881,7 +1116,7 @@ Mouse 0		6	SCM	FuncShowMessage  "Minimize Button Bindings" \
 "Mouse 3:  Iconify toggle resource group"
 
 #***********************************************************************
-# 4.1.3. Pointer in Window Decorations
+# 6.1.3. Pointer in Window Decorations
 #***********************************************************************
 #     Button	Context Modifi 	Function
 
@@ -940,7 +1175,7 @@ Mouse 0		W	SCM	FuncShowMessage  "Mouse Bindings for Window area" \
 
 
 #***********************************************************************
-# 4.1.4. Pointer in Icons
+# 6.1.4. Pointer in Icons
 #***********************************************************************
 #     Button	Context Modifi 	Function
 
@@ -975,14 +1210,14 @@ Mouse 0		I       SCM     FuncShowMessage  "Mouse Bindings for Icons" \
 "           WindowGroupOps menu with CTRL + click"
 
 #***********************************************************************
-# 4.1.5. Pointer in Window (and in Icon for consistency)
+# 6.1.5. Pointer in Window (and in Icon for consistency)
 #***********************************************************************
 #     Button	Context Modifi 	Function
 Mouse 1		WI	M	Menu MenuRoot
 
 
 #=======================================================================
-# 4.2 Keyboard
+# 6.2 Keyboard
 #=======================================================================
 # same as with mouse:
 #   Keyname 	Context Modifi 	Function
@@ -998,7 +1233,7 @@ key H		A       SCM     FuncShowMessage  "Help Keys with CTRL-ALT" \
 "P: List Page bindings"
 
 #***********************************************************************
-# 4.2.1 ALT + Key
+# 6.2.1 ALT + Key
 #***********************************************************************
 #   Keyname 	Context Modifi 	Function
 # Switching focus between windows. (ALT-Tab)
@@ -1206,188 +1441,6 @@ key P		A	SCM	FuncShowMessage  "Page Key Bindings" \
 #Stroke	N789632147 0	RN	FvwmForm FvwmForm-QuitVerify
 #Stroke	N78963214  0	WM	FvwmForm FvwmForm-QuitVerify
 #Stroke	N789632147 0	WM	FvwmForm FvwmForm-QuitVerify
-
-
-########################################################################
-#                         5. M O D U L E S 
-########################################################################
-# Definitions used by Fvwm modules.
-# (Alphabetic order is used, but the Form are at the end)
-
-#=======================================================================
-# 5.1 FvwmAnimate
-#=======================================================================
-DestroyModuleConfig FvwmAnimate: *
-
-*FvwmAnimate: Color #6e6e6e
-*FvwmAnimate: Effect twist
-*FvwmAnimate: Delay 3
-*FvwmAnimate: Iterations 50
-*FvwmAnimate: Width 5
-
-#=======================================================================
-# 5.2 FvwmBacker
-#=======================================================================
-*FvwmBacker: Command(Desk 0, Page * *) Colorset 24
-
-#=======================================================================
-# 5.3 FvwmBanner
-#=======================================================================
-Style FvwmBanner !Title, Sticky, StaysOnTop, WindowListSkip, CirculateSkip
-
-*FvwmBanner: NoDecor
-Test (I banner.fvwm_cat_thing.xpm) *FvwmBanner: Pixmap banner.fvwm_cat_thing.xpm
-*FvwmBanner: Timeout 3
-
-#=======================================================================
-# 5.4 FvwmEvent
-#=======================================================================
-
-#***********************************************************************
-# 5.4.1 Common FvwmEvents
-#***********************************************************************
-DestroyModuleConfig FvwmEventCommon: *
-*FvwmEventCommon: enter_window      FE-EnterWindow
-
-#***********************************************************************
-# 5.4.1 Sound FvwmEvents
-#***********************************************************************
-DestroyModuleConfig FvwmEventSound: *
-
-# replace rplay by a sound player that can play .au sound file
-#*FvwmEvent: Cmd "Exec exec rplay "
-
-*FvwmEventSound: StartDelay 3
-*FvwmEventSound: Delay 1
-
-#*FvwmEventSound: startup          "/usr/share/sounds/gong.au"
-#*FvwmEventSound: add_window       "/usr/share/sounds/wipe.au"
-#*FvwmEventSound: destroy_window   "/usr/share/sounds/pook.au"
-#*FvwmEventSound: iconify          "/usr/share/sounds/clong.au"
-#*FvwmEventSound: deiconify        "/usr/share/sounds/clong.au"
-#*FvwmEventSound: windowshade      "/usr/share/sounds/slide.au"
-#*FvwmEventSound: dewindowshade    "/usr/share/sounds/slide.au"
-#*FvwmEventSound: new_page         "/usr/share/sounds/slide.au"
-
-
-#=======================================================================
-# 5.5 FvwmForm
-#=======================================================================
-
-#***********************************************************************
-# 5.5.1 RunCommand Window
-#***********************************************************************
-DestroyModuleConfig  FvwmForm-RunCommand: *
-*FvwmForm-RunCommand: WarpPointer
-*FvwmForm-RunCommand: Title         "$[gt.Run Command]"
-*FvwmForm-RunCommand: Line          center
-*FvwmForm-RunCommand: Text          "$[gt.Run Command]"
-*FvwmForm-RunCommand: Line          left
-*FvwmForm-RunCommand: Text          "$[gt.Command:]"
-*FvwmForm-RunCommand: Input         Command 30 ""
-*FvwmForm-RunCommand: Line          center
-*FvwmForm-RunCommand: Selection     cmd multiple
-*FvwmForm-RunCommand: Choice        TERM    TERM     off      "$[gt.Run in Terminal]"
-*FvwmForm-RunCommand: Line          expand
-*FvwmForm-RunCommand: Button        quit "$[gt.Execute]"
-*FvwmForm-RunCommand: Command       $(TERM?exec xterm -hold -T "$(Command)" -n "$(Command)" -e $(Command))
-*FvwmForm-RunCommand: Command       exec $(Command)
-*FvwmForm-RunCommand: Button        quit "$[gt.Cancel]"
-*FvwmForm-RunCommand: Command       Nop
-
-
-#=======================================================================
-# 5.6 FvwmIdent
-#=======================================================================
-#  A xwininfo replacement
-DestroyModuleConfig FvwmIdent: *
-*FvwmIdent: Colorset  21
-*FvwmIdent: Font      "xft:$[infostore.used_font]:pixelsize=$[infostore.fontsize]"
-
-
-#=======================================================================
-# 5.7 FvwmIconMan
-#=======================================================================
-
-#***********************************************************************
-# 5.7.1 Global FvwmIconMan ("Taskbar")
-#***********************************************************************
-#Style FvwmGlobalIconMan !Title, Sticky, WindowListSkip, StaysOnBottom, HandleWidth 1, !State 1
-Style FvwmGlobalIconMan TitleAtRight, !Button 1, !Button 2, !Button 4, !Button 6, Sticky, WindowListSkip, StaysOnBottom, HandleWidth 1, !State 1
-
-DestroyModuleConfig FvwmGlobalIconMan: *
-*FvwmGlobalIconMan: 1 IconName                GlobalIconMan
-*FvwmGlobalIconMan: 1 Title                   "Global IconMan"
-PipeRead 'echo *FvwmGlobalIconMan: 1 ButtonGeometry   $(($[vp.width]/3))x0'
-PipeRead 'echo *FvwmGlobalIconMan: 1 ManagerGeometry  1x0+$(($[infostore.fontsize]/2))+0'
-
-*FvwmGlobalIconMan: 1 Colorset		      10
-*FvwmGlobalIconMan: 1 IconColorset	      12
-*FvwmGlobalIconMan: 1 PlainColorset	      10
-*FvwmGlobalIconMan: 1 SelectColorset	      11
-*FvwmGlobalIconMan: 1 FocusColorset	      11
-*FvwmGlobalIconMan: 1 FocusAndSelectColorset  11
-
-*FvwmGlobalIconMan: 1 FollowFocus             true
-*FvwmGlobalIconMan: 1 IconButton	      down
-*FvwmGlobalIconMan: 1 PlainButton	      up
-*FvwmGlobalIconMan: 1 SelectButton	      down
-*FvwmGlobalIconMan: 1 FocusButton	      up
-*FvwmGlobalIconMan: 1 FocusAndSelectButton    down
-
-*FvwmGlobalIconMan: 1 ReliefThickness         1
-*FvwmGlobalIconMan: 1 Resolution              page
-*FvwmGlobalIconMan: 1 UseWinList              true
-
-*FvwmGlobalIconMan: 1 DrawIcons               always
-*FvwmGlobalIconMan: 1 Sort                    name
-*FvwmGlobalIconMan: 1 Format                  "%c: %t"
-*FvwmGlobalIconMan: 1 Font                    "xft:$[infostore.used_font]:pixelsize=$[infostore.fontsize]"
-	
-*FvwmGlobalIconMan: 1 NoIconAction			"SendToModule FvwmAnimate animate"
-*FvwmGlobalIconMan: 1 Action  Mouse	1	A	sendcommand "FuncSelectWindow"
-*FvwmGlobalIconMan: 1 Action  Mouse	2	A	sendcommand "Iconify"
-*FvwmGlobalIconMan: 1 Action  Mouse	3	A	sendcommand "Popup MenuWindowOpsTrimmed Mouse c -102m"
-*FvwmGlobalIconMan: 1 Action  select			sendcommand "Focus"
-
-*FvwmGlobalIconMan: 1 Action  Key     	Up    	N 	gotobutton Up, select
-*FvwmGlobalIconMan: 1 Action  Key     	Down  	N 	gotobutton Down, select
-
-
-#=======================================================================
-# 5.8 FvwmPager
-#=======================================================================
-Style FvwmPager !Title, Sticky, WindowListSkip, StaysOnTop, FixedSize, FixedPosition, HandleWidth 1
-#Style FvwmPager NoTitle, !Handles, Borders, Sticky, StaysOnTop, Iconifiable, PositionPlacement center
-
-DestroyModuleConfig FvwmPager: *
-PipeRead 'echo *FvwmPager: Geometry $(($[vp.width]/5))x$[infostore.fvwm_pager_height]+$(($[vp.width]/2-($[vp.width]/5)/2))+0'
-*FvwmPager: Colorset            *  10
-*FvwmPager: HilightColorset     *  11
-*FvwmPager: BalloonColorset     *  16
-*FvwmPager: WindowColorsets     14 15
-*FvwmPager: Balloons            All
-*FvwmPager: SmallFont           none
-*FvwmPager: Font                none
-*FvwmPager: BalloonFont         "xft:$[infostore.used_font]:pixelsize=$[infostore.fontsize]"
-*FvwmPager: BallonYOffset       +2
-*FvwmPager: WindowBorderWidth   1
-*FvwmPager: WindowLabelFormat   ""
-*FvwmPager: MiniIcons
-*FvwmPager: UseSkipList
-*FvwmPager: Rows                1
-*FvwmPager: SolidSeparators
-
-
-#=======================================================================
-# 5.9 FvwmProxy
-#=======================================================================
-# Hit ALT+Esc to toggle FvwmProxy, which allows you to see all windows on your
-# desktop, even if they've been obscured... really cool!
-DestroyModuleConfig FvwmProxy: *
-*FvwmProxy: Colorset 13
-#*FvwmProxy: Font "Shadow=0 1 SE:xft:$[infostore.used_font]:pixelsize=11"
-*FvwmProxy: ProxyMove false
 
 
 
@@ -1642,7 +1695,6 @@ AddToFunc   FuncFvwmShowColorsets
                 close MSG; \
                 cmd("Schedule 100 Module FvwmForm FvwmForm-ShowColorsets");'
 
-
 #-----------------------------------------------------------------------
 # Open an URL in a browser
 #-----------------------------------------------------------------------
@@ -1859,7 +1911,6 @@ AddToFunc   FuncRestore
 + I ThisWindow (!Iconic  Shaded          ) WindowShade false
 + I ThisWindow ( Iconic                  ) Iconify     false
 
-
 #-----------------------------------------------------------------------
 #-----------------------------------------------------------------------
 DestroyFunc FuncDeleteOrDestroy
@@ -1973,6 +2024,8 @@ AddToFunc FuncStaysOnTopAndBack
 # to move the complete window while hover the mouse over the visible
 # piece in the screen and after mouse loose focus it warps back
 #-----------------------------------------------------------------------
+# ???? have to find .... perhaps it's needful ...
+
 
 #=======================================================================
 # 6.4 Menus
@@ -2008,6 +2061,7 @@ AddToMenu    MenuWindowMoveTo "Move to ..." Title
 + "&Left	Page%menu/window-move.xpm%"	AnimatedMove w-100 w
 #+ "&Down	Page%menu/window-move.xpm%"	AnimatedMove w w+100
 #+ "&Up  	Page%menu/window-move.xpm%"	AnimatedMove w w-100
+
 
 
 ########################################################################
@@ -2068,6 +2122,7 @@ AddToFunc FuncMenuFvwmPersonal
 + I AddToMenu MenuFvwmPersonal "$[gt.&Personal Applications]" Title
 + I AddToMenu MenuFvwmPersonal "$[gt.Configure Personal Applications]%menu/configuration.xpm%"	FvwmScript FvwmScript-PersonalMenu
 + I Test (f  $[FVWM_USERDIR]/.personal) PipeRead `sed -e '/^# personal menu/ d;/^ *$/,$ d' $[FVWM_USERDIR]/.personal`
+
 
 #=======================================================================
 # 7.2 Help
@@ -2204,7 +2259,6 @@ AddToFunc FuncMenuFvwmConfiguration
 + I AddToMenu MenuFvwmConfiguration "" Nop
 + I AddToMenu MenuFvwmConfiguration "$[gt.&Show Colorsets]%menu/colors.xpm%"                   FuncFvwmShowColorsets
 
-
 #-----------------------------------------------------------------------
 # Dynamic Configuration sub menu for setting a background with
 # a picture or FvwmBaker (default background) 
@@ -2221,7 +2275,6 @@ AddToFunc FuncMenuWallpaperConfiguration
     AddToMenu MenuWallpaperConfiguration "$[gt.Set &Default background]%menu/choice-no.xpm%"      FuncDelWallpaperlink
 + I AddToMenu MenuWallpaperConfiguration MissingSubmenuFunction WallpaperBrowser
 + I AddToMenu MenuWallpaperConfiguration "$[gt.Set &Wallpaper background]%menu/image-viewer.xpm%"    Popup $[infostore.fvwm_wallpaper_dir]
-
 
 #-----------------------------------------------------------------------
 # Dynamic Configuration sub menu for X configuration
@@ -2243,7 +2296,7 @@ AddToFunc FuncMenuXConfiguration
 + I TestRc (!Match) \
     AddToMenu MenuXConfiguration "$[gt.Sc&reen Saver]%menu/display.xpm%"      FuncShowMessage \
                                                                                 "Screensaver Info" \
-                                                                                "Install xscreensaver for full functionality"                                                                                
+                                                                                "Install xscreensaver for full functionality"     
 + I AddToMenu MenuXConfiguration "" Nop
 + I AddToMenu MenuXConfiguration "$[gt.&Tail .xsession-errors]%menu/information.xpm%" FuncViewFileTail ".xsession-errors" $[HOME]/.xsession-errors
 
@@ -2279,16 +2332,17 @@ AddToFunc   FuncMenuFvwmQuit
 + I TestRc (!Match) \
     AddToMenu MenuFvwmQuit "$[gt.&Suspend System]%menu/system.xpm%"       FuncShowMessage \
                                                                                 "Suspend Info" \
-                                                                                "Install pm-utils for full functionality"                                                                                
+                                                                                "Install pm-utils for full functionality"         
 + I Test (x pm-is-supported) \
     AddToMenu MenuFvwmQuit "$[gt.&Hibernate System]%menu/system.xpm%"     FuncHibernate
 + I TestRc (!Match) \
     AddToMenu MenuFvwmQuit "$[gt.&Hibernate System]%menu/system.xpm%"     FuncShowMessage \
                                                                                 "Suspend Info" \
-                                                                                "Install pm-utils for full functionality"                                                                                
+                                                                                "Install pm-utils for full functionality"          
 + I AddToMenu MenuFvwmQuit "" Nop
 + I AddToMenu MenuFvwmQuit "$[gt.&Yes, Really Quit]%menu/choice-yes.xpm%" Quit
 + I AddToMenu MenuFvwmQuit "$[gt.&No, Don't Quit]%menu/choice-no.xpm%"    Nop
+
 
 #=======================================================================
 # 7.6 Window Ops menus

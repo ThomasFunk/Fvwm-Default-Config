@@ -25,39 +25,3 @@ from TA:
  Emulate mwm
 ## TF: will check
 
-> >> +## TA: Suggest you use decors.
-> >> ## TF: but UseDecor is deprecated ...
-> >
-> >So is UseStyle. That deprecation warning was seriously misplaced and
-> >optimistic when it was introduced in to the man page. I strongly suggest
-> >you use a decor here.
-> Ok
-
-> >> +## TA: This should be with the other styles.
-> >> ## TF: How can I use the IconBox for all styles?
-> >
-> >My comment here (and for the others below) about "this should be with the
-> >other styles" is simply referring to you moving the random styles here of
-> >"style *" to be with the other "style *" lines above. The order of style
-> >lines is really important and you're potentially trampling
-> >application-specific styles here by not grouping them.
-> But I did this. First the * styles then the application-specific ones in "3.3
-> Applications"
-> Ok, the Style Untitled not ...
-> Will sort it new - first all * styles then the others, right?
-
-Yes, exactly.
-One is that the .default-fvwm2rc file
-as it currently stands looks like this:
-
-Style * ....
-Style foo ...
-Style * ...
-Style *....
-
-You should make it look like this:
-
-Style * ...
-Style * ...
-Style foo ...
-
