@@ -1,5 +1,12 @@
 History:
 
+06/20/2012 V 0.21.6
+- simplify menus with MissingSubmenuFunction and swaping Test/TestRc
+  parts into functions
+
+06/17/2012 V 0.21.5
+- change some $(($x+1)) to `expr $x + 1`
+
 06/17/2012 V 0.21.5
 - add to help menu 'How Styles are Applied'
 - move the rest of specific styles (modules) to APPLICATIONS LOOK/FEEL
