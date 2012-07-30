@@ -1,10 +1,18 @@
 History:
 
+07/30/2012 V 0.21.7
+- add some comments and delete unused lines
+- comment out FuncSuspend and FuncHibernate because they're only usable
+  on Linux machines
+- delete FvwmProxy because it works only on the actual page and for that
+  FuncSwitchWindow exist
+- Add moving active window to page n with SHIFT-ALT+1-4 + update help windows
+- set default terminal to xterm
+- delete FuncFvwmShowColorsets becaue make no sense for user
+
 06/20/2012 V 0.21.6
 - simplify menus with MissingSubmenuFunction and swaping Test/TestRc
   parts into functions
-
-06/17/2012 V 0.21.5
 - change some $(($x+1)) to `expr $x + 1`
 
 06/17/2012 V 0.21.5
